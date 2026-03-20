@@ -7,8 +7,12 @@ entity plans {
   --
   code : varchar(50) <<UQ>>
   name : varchar(100)
+  description : text
+  max_members : int
+  max_channels : int
+  max_storage_gb : int
+  features_json : json
   status : varchar(30)
-  config_json : json
   created_at : datetime
   updated_at : datetime
 }
@@ -20,14 +24,13 @@ entity tenants {
   plan_id : bigint <<FK>>
   owner_user_id : bigint <<FK>>
   name : varchar(255)
-  tenant_code : varchar(100) <<UQ>>
+  slug : varchar(100) <<UQ>>
   domain : varchar(255)
   status : varchar(30)
-  timezone : varchar(100)
-  locale : varchar(20)
+  timezone : varchar(50)
+  locale : varchar(10)
   branding_json : json
-  policy_flags_json : json
-  metadata_json : json
+  settings_json : json
   activated_at : datetime
   suspended_at : datetime
   created_at : datetime
@@ -35,26 +38,21 @@ entity tenants {
   deleted_at : datetime
 }
 
-entity workspaces {
-  * id : bigint <<PK>>
-  --
-  uuid : char(36) <<UQ>>
-  tenant_id : bigint <<FK>>
-  code : varchar(100)
-  name : varchar(255)
-  description : text
-  logo_url : varchar(500)
-  status : varchar(30)
-  is_default : boolean
-  rules_json : json
-  metadata_json : json
-  created_by : bigint <<FK>>
-  updated_by : bigint <<FK>>
-  created_at : datetime
-  updated_at : datetime
-  deleted_at : datetime
-}
+note right of tenants::branding_json
+  {
+    "logo_url": "...",
+    "primary_color": "#...",
+    "theme": "light|dark"
+  }
+end note
+
+note right of tenants::settings_json
+  {
+    "invite_policy": "admin_only|members",
+    "retention_days": 90,
+    "allowed_domains": ["@company.com"]
+  }
+end note
 
 plans ||--o{ tenants
-tenants ||--o{ workspaces
 @enduml

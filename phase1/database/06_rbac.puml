@@ -5,14 +5,24 @@ skinparam linetype ortho
 entity roles {
   * id : bigint <<PK>>
   --
-  tenant_id : bigint <<FK>>
+  tenant_id : bigint <<FK, nullable>>
   scope_type : varchar(30)
   code : varchar(50)
   name : varchar(100)
+  description : varchar(500)
   is_system : boolean
   created_at : datetime
   updated_at : datetime
 }
+
+note right of roles::scope_type
+  tenant | channel
+end note
+
+note right of roles::is_system
+  true = built-in roles (owner, admin, member)
+  false = custom roles
+end note
 
 entity permissions {
   * id : bigint <<PK>>
@@ -21,7 +31,20 @@ entity permissions {
   code : varchar(100) <<UQ>>
   name : varchar(255)
   description : varchar(500)
+  created_at : datetime
 }
+
+note right of permissions::scope_type
+  tenant | channel
+end note
+
+note right of permissions::code
+  Examples:
+  - tenant.member.invite
+  - tenant.settings.update
+  - channel.message.send
+  - channel.member.remove
+end note
 
 entity role_permissions {
   * id : bigint <<PK>>
@@ -35,13 +58,8 @@ entity tenant_member_roles {
   --
   tenant_member_id : bigint <<FK>>
   role_id : bigint <<FK>>
-}
-
-entity workspace_member_roles {
-  * id : bigint <<PK>>
-  --
-  workspace_member_id : bigint <<FK>>
-  role_id : bigint <<FK>>
+  assigned_by : bigint <<FK>>
+  assigned_at : datetime
 }
 
 entity channel_member_roles {
@@ -49,12 +67,13 @@ entity channel_member_roles {
   --
   channel_member_id : bigint <<FK>>
   role_id : bigint <<FK>>
+  assigned_by : bigint <<FK>>
+  assigned_at : datetime
 }
 
 roles ||--o{ role_permissions
 permissions ||--o{ role_permissions
 
 roles ||--o{ tenant_member_roles
-roles ||--o{ workspace_member_roles
 roles ||--o{ channel_member_roles
 @enduml

@@ -3,14 +3,14 @@ hide circle
 skinparam linetype ortho
 skinparam packageStyle rectangle
 
-package "Identity" {
+package "Identity & User Management" {
   entity users {
     * id : bigint
     --
     uuid : char(36)
     email : varchar
     password_hash : varchar
-    account_status : varchar
+    status : varchar
     auth_provider : varchar
     email_verified_at : datetime
     last_login_at : datetime
@@ -25,10 +25,11 @@ package "Identity" {
     display_name : varchar
     avatar_url : varchar
     job_title : varchar
-    internal_phone : varchar
+    phone : varchar
     language_code : varchar
     timezone : varchar
-    presence_status : varchar
+    status : varchar
+    bio : varchar
     created_at : datetime
     updated_at : datetime
   }
@@ -36,9 +37,8 @@ package "Identity" {
   entity user_settings {
     * user_id : bigint
     --
-    notification_level : varchar
-    notification_config_json : json
-    preference_json : json
+    notifications_json : json
+    preferences_json : json
     created_at : datetime
     updated_at : datetime
   }
@@ -52,9 +52,8 @@ package "Identity" {
     ip_address : varchar
     user_agent : varchar
     device_name : varchar
-    is_current : boolean
     last_seen_at : datetime
-    expired_at : datetime
+    expires_at : datetime
     revoked_at : datetime
     created_at : datetime
   }
@@ -64,20 +63,24 @@ package "Identity" {
     --
     user_id : bigint
     token_hash : varchar
-    expired_at : datetime
+    expires_at : datetime
     used_at : datetime
     created_at : datetime
   }
 }
 
-package "Tenant Foundation" {
+package "Tenant & Subscription" {
   entity plans {
     * id : bigint
     --
     code : varchar
     name : varchar
+    description : text
+    max_members : int
+    max_channels : int
+    max_storage_gb : int
+    features_json : json
     status : varchar
-    config_json : json
     created_at : datetime
     updated_at : datetime
   }
@@ -89,14 +92,13 @@ package "Tenant Foundation" {
     plan_id : bigint
     owner_user_id : bigint
     name : varchar
-    tenant_code : varchar
+    slug : varchar
     domain : varchar
     status : varchar
     timezone : varchar
     locale : varchar
     branding_json : json
-    policy_flags_json : json
-    metadata_json : json
+    settings_json : json
     activated_at : datetime
     suspended_at : datetime
     created_at : datetime
@@ -104,28 +106,6 @@ package "Tenant Foundation" {
     deleted_at : datetime
   }
 
-  entity workspaces {
-    * id : bigint
-    --
-    uuid : char(36)
-    tenant_id : bigint
-    code : varchar
-    name : varchar
-    description : text
-    logo_url : varchar
-    status : varchar
-    is_default : boolean
-    rules_json : json
-    metadata_json : json
-    created_by : bigint
-    updated_by : bigint
-    created_at : datetime
-    updated_at : datetime
-    deleted_at : datetime
-  }
-}
-
-package "Membership" {
   entity tenant_members {
     * id : bigint
     --
@@ -134,65 +114,6 @@ package "Membership" {
     status : varchar
     joined_at : datetime
     invited_by : bigint
-    invited_at : datetime
-    removed_at : datetime
-    created_at : datetime
-    updated_at : datetime
-  }
-
-  entity workspace_members {
-    * id : bigint
-    --
-    tenant_id : bigint
-    workspace_id : bigint
-    user_id : bigint
-    status : varchar
-    joined_at : datetime
-    invited_by : bigint
-    invited_at : datetime
-    left_at : datetime
-    removed_at : datetime
-    created_at : datetime
-    updated_at : datetime
-  }
-
-  entity channels {
-    * id : bigint
-    --
-    uuid : char(36)
-    tenant_id : bigint
-    workspace_id : bigint
-    code : varchar
-    name : varchar
-    slug : varchar
-    channel_type : varchar
-    description : text
-    topic : varchar
-    avatar_url : varchar
-    status : varchar
-    rules_json : json
-    metadata_json : json
-    created_by : bigint
-    updated_by : bigint
-    created_at : datetime
-    updated_at : datetime
-    deleted_at : datetime
-  }
-
-  entity channel_members {
-    * id : bigint
-    --
-    tenant_id : bigint
-    workspace_id : bigint
-    channel_id : bigint
-    user_id : bigint
-    membership_status : varchar
-    joined_at : datetime
-    added_by : bigint
-    notification_level : varchar
-    is_pinned : boolean
-    display_order : int
-    hidden_at : datetime
     left_at : datetime
     removed_at : datetime
     created_at : datetime
@@ -203,12 +124,12 @@ package "Membership" {
     * id : bigint
     --
     tenant_id : bigint
-    workspace_id : bigint
+    channel_id : bigint
     email : varchar
     invite_type : varchar
     token : varchar
-    intended_role_scope : varchar
-    intended_role_code : varchar
+    role_scope : varchar
+    role_code : varchar
     status : varchar
     expires_at : datetime
     invited_by : bigint
@@ -219,47 +140,72 @@ package "Membership" {
   }
 }
 
-package "Chat" {
-  entity messages {
+package "Channels & Messages" {
+  entity channels {
     * id : bigint
     --
     uuid : char(36)
     tenant_id : bigint
-    workspace_id : bigint
+    name : varchar
+    slug : varchar
+    channel_type : varchar
+    description : text
+    topic : varchar
+    avatar_url : varchar
+    status : varchar
+    settings_json : json
+    created_by : bigint
+    created_at : datetime
+    updated_at : datetime
+    deleted_at : datetime
+  }
+
+  entity channel_members {
+    * id : bigint
+    --
+    channel_id : bigint
+    user_id : bigint
+    status : varchar
+    notification_level : varchar
+    is_pinned : boolean
+    display_order : int
+    joined_at : datetime
+    added_by : bigint
+    left_at : datetime
+    created_at : datetime
+    updated_at : datetime
+  }
+
+  entity messages {
+    * id : bigint
+    --
+    uuid : char(36)
     channel_id : bigint
     sender_user_id : bigint
     parent_message_id : bigint
     message_type : varchar
     content_text : text
     metadata_json : json
-    is_edited : boolean
     edited_at : datetime
     edited_by : bigint
-    is_deleted : boolean
     deleted_at : datetime
     deleted_by : bigint
     created_at : datetime
-    updated_at : datetime
   }
 
   entity message_reads {
     * id : bigint
     --
-    tenant_id : bigint
-    workspace_id : bigint
     channel_id : bigint
     user_id : bigint
     last_read_message_id : bigint
     last_read_at : datetime
-    created_at : datetime
     updated_at : datetime
   }
 
   entity message_pins {
     * id : bigint
     --
-    tenant_id : bigint
-    workspace_id : bigint
     channel_id : bigint
     message_id : bigint
     pinned_by : bigint
@@ -271,18 +217,17 @@ package "Chat" {
     * id : bigint
     --
     message_id : bigint
-    attachment_type : varchar
-    storage_provider : varchar
     file_name : varchar
     mime_type : varchar
     file_size : bigint
+    storage_path : varchar
     url : varchar
-    metadata_json : json
+    thumbnail_url : varchar
     created_at : datetime
   }
 }
 
-package "Authorization" {
+package "Authorization (RBAC)" {
   entity roles {
     * id : bigint
     --
@@ -290,6 +235,7 @@ package "Authorization" {
     scope_type : varchar
     code : varchar
     name : varchar
+    description : varchar
     is_system : boolean
     created_at : datetime
     updated_at : datetime
@@ -302,6 +248,7 @@ package "Authorization" {
     code : varchar
     name : varchar
     description : varchar
+    created_at : datetime
   }
 
   entity role_permissions {
@@ -316,13 +263,8 @@ package "Authorization" {
     --
     tenant_member_id : bigint
     role_id : bigint
-  }
-
-  entity workspace_member_roles {
-    * id : bigint
-    --
-    workspace_member_id : bigint
-    role_id : bigint
+    assigned_by : bigint
+    assigned_at : datetime
   }
 
   entity channel_member_roles {
@@ -330,44 +272,49 @@ package "Authorization" {
     --
     channel_member_id : bigint
     role_id : bigint
+    assigned_by : bigint
+    assigned_at : datetime
   }
 }
 
+' Identity relationships
 users ||--|| user_profiles
 users ||--|| user_settings
 users ||--o{ user_sessions
 users ||--o{ password_resets
 
+' Tenant relationships
 plans ||--o{ tenants
-tenants ||--o{ workspaces
 tenants ||--o{ tenant_members
-tenants ||--o{ workspace_members
 tenants ||--o{ channels
 tenants ||--o{ invitations
 tenants ||--o{ roles
 
-workspaces ||--o{ workspace_members
-workspaces ||--o{ channels
-workspaces ||--o{ invitations
+' Membership relationships
+users ||--o{ tenant_members
 
+' Channel relationships
 channels ||--o{ channel_members
 channels ||--o{ messages
 channels ||--o{ message_reads
 channels ||--o{ message_pins
+channels ||--o{ invitations
 
+' Message relationships
 messages ||--o{ messages : parent
 messages ||--o{ message_reads
 messages ||--o{ message_pins
 messages ||--o{ message_attachments
 
+' User relationships with channels and messages
+users ||--o{ channel_members
+users ||--o{ messages
+
+' RBAC relationships
 roles ||--o{ role_permissions
 permissions ||--o{ role_permissions
-
 tenant_members ||--o{ tenant_member_roles
-workspace_members ||--o{ workspace_member_roles
 channel_members ||--o{ channel_member_roles
-
 roles ||--o{ tenant_member_roles
-roles ||--o{ workspace_member_roles
 roles ||--o{ channel_member_roles
 @enduml

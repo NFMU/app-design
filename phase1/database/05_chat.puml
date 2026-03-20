@@ -6,42 +6,43 @@ entity messages {
   * id : bigint <<PK>>
   --
   uuid : char(36) <<UQ>>
-  tenant_id : bigint <<FK>>
-  workspace_id : bigint <<FK>>
   channel_id : bigint <<FK>>
   sender_user_id : bigint <<FK>>
-  parent_message_id : bigint <<FK>>
+  parent_message_id : bigint <<FK, nullable>>
   message_type : varchar(30)
   content_text : text
   metadata_json : json
-  is_edited : boolean
   edited_at : datetime
   edited_by : bigint <<FK>>
-  is_deleted : boolean
   deleted_at : datetime
   deleted_by : bigint <<FK>>
   created_at : datetime
-  updated_at : datetime
 }
+
+note right of messages::message_type
+  text | system | file
+end note
+
+note right of messages::metadata_json
+  {
+    "mentions": [user_ids],
+    "reactions": {...}
+  }
+end note
 
 entity message_reads {
   * id : bigint <<PK>>
   --
-  tenant_id : bigint <<FK>>
-  workspace_id : bigint <<FK>>
   channel_id : bigint <<FK>>
   user_id : bigint <<FK>>
   last_read_message_id : bigint <<FK>>
   last_read_at : datetime
-  created_at : datetime
   updated_at : datetime
 }
 
 entity message_pins {
   * id : bigint <<PK>>
   --
-  tenant_id : bigint <<FK>>
-  workspace_id : bigint <<FK>>
   channel_id : bigint <<FK>>
   message_id : bigint <<FK>>
   pinned_by : bigint <<FK>>
@@ -53,13 +54,12 @@ entity message_attachments {
   * id : bigint <<PK>>
   --
   message_id : bigint <<FK>>
-  attachment_type : varchar(30)
-  storage_provider : varchar(30)
   file_name : varchar(255)
   mime_type : varchar(100)
   file_size : bigint
+  storage_path : varchar(1000)
   url : varchar(1000)
-  metadata_json : json
+  thumbnail_url : varchar(1000)
   created_at : datetime
 }
 

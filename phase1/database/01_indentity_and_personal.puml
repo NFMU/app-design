@@ -8,7 +8,7 @@ entity users {
   uuid : char(36) <<UQ>>
   email : varchar(255) <<UQ>>
   password_hash : varchar(255)
-  account_status : varchar(30)
+  status : varchar(30)
   auth_provider : varchar(30)
   email_verified_at : datetime
   last_login_at : datetime
@@ -17,30 +17,58 @@ entity users {
   deleted_at : datetime
 }
 
+note right of users::status
+  active | suspended | deleted
+end note
+
+note right of users::auth_provider
+  local | google | microsoft | saml
+end note
+
 entity user_profiles {
   * user_id : bigint <<PK, FK>>
   --
   display_name : varchar(255)
   avatar_url : varchar(500)
   job_title : varchar(255)
-  internal_phone : varchar(50)
-  language_code : varchar(20)
-  timezone : varchar(100)
-  presence_status : varchar(30)
-  about_text : varchar(500)
+  phone : varchar(50)
+  language_code : varchar(10)
+  timezone : varchar(50)
+  status : varchar(30)
+  bio : varchar(500)
   created_at : datetime
   updated_at : datetime
 }
 
+note right of user_profiles::status
+  online | away | busy | offline
+end note
+
 entity user_settings {
   * user_id : bigint <<PK, FK>>
   --
-  notification_level : varchar(30)
-  notification_config_json : json
-  preference_json : json
+  notifications_json : json
+  preferences_json : json
   created_at : datetime
   updated_at : datetime
 }
+
+note right of user_settings::notifications_json
+  {
+    "email": true,
+    "push": true,
+    "desktop": true,
+    "sound": "default"
+  }
+end note
+
+note right of user_settings::preferences_json
+  {
+    "theme": "light",
+    "compact_mode": false,
+    "sidebar_collapsed": false
+  }
+end note
 
 entity user_sessions {
   * id : bigint <<PK>>
@@ -51,9 +79,8 @@ entity user_sessions {
   ip_address : varchar(64)
   user_agent : varchar(500)
   device_name : varchar(255)
-  is_current : boolean
   last_seen_at : datetime
-  expired_at : datetime
+  expires_at : datetime
   revoked_at : datetime
   created_at : datetime
 }
@@ -62,8 +89,8 @@ entity password_resets {
   * id : bigint <<PK>>
   --
   user_id : bigint <<FK>>
-  token_hash : varchar(255)
-  expired_at : datetime
+  token_hash : varchar(255) <<UQ>>
+  expires_at : datetime
   used_at : datetime
   created_at : datetime
 }

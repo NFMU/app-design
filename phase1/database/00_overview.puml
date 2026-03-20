@@ -3,7 +3,7 @@ hide circle
 skinparam linetype ortho
 skinparam packageStyle rectangle
 
-package "Identity" {
+package "Identity & User Management" #E8F5E9 {
   entity users
   entity user_profiles
   entity user_settings
@@ -11,77 +11,97 @@ package "Identity" {
   entity password_resets
 }
 
-package "Tenant Foundation" {
+package "Tenant & Subscription" #E3F2FD {
   entity plans
   entity tenants
-  entity workspaces
-}
-
-package "Membership" {
   entity tenant_members
-  entity workspace_members
-  entity channel_members
   entity invitations
 }
 
-package "Channel & Chat" {
+package "Channels & Messages" #FFF3E0 {
   entity channels
+  entity channel_members
   entity messages
   entity message_reads
   entity message_pins
   entity message_attachments
 }
 
-package "Authorization" {
+package "Authorization (RBAC)" #F3E5F5 {
   entity roles
   entity permissions
   entity role_permissions
   entity tenant_member_roles
-  entity workspace_member_roles
   entity channel_member_roles
 }
 
+' Identity relationships
 users ||--|| user_profiles
 users ||--|| user_settings
 users ||--o{ user_sessions
 users ||--o{ password_resets
 
+' Tenant relationships
 plans ||--o{ tenants
-tenants ||--o{ workspaces
 tenants ||--o{ tenant_members
-tenants ||--o{ workspace_members
 tenants ||--o{ channels
 tenants ||--o{ invitations
 tenants ||--o{ roles
 
-workspaces ||--o{ workspace_members
-workspaces ||--o{ channels
-workspaces ||--o{ invitations
+' Membership relationships
+users ||--o{ tenant_members
 
+' Channel relationships
 channels ||--o{ channel_members
 channels ||--o{ messages
 channels ||--o{ message_reads
 channels ||--o{ message_pins
+channels ||--o{ invitations
 
-messages ||--o{ message_attachments
+' Message relationships
 messages ||--o{ messages : parent
-messages ||--o{ message_pins
 messages ||--o{ message_reads
+messages ||--o{ message_pins
+messages ||--o{ message_attachments
 
-users ||--o{ tenant_members
-users ||--o{ workspace_members
+' User relationships with channels and messages
 users ||--o{ channel_members
 users ||--o{ messages
-users ||--o{ invitations
 
+' RBAC relationships
 roles ||--o{ role_permissions
 permissions ||--o{ role_permissions
-
 tenant_members ||--o{ tenant_member_roles
-workspace_members ||--o{ workspace_member_roles
 channel_members ||--o{ channel_member_roles
-
 roles ||--o{ tenant_member_roles
-roles ||--o{ workspace_member_roles
 roles ||--o{ channel_member_roles
+
+note top of "Identity & User Management"
+  Core user authentication & profile
+  - Simple status tracking
+  - Session management
+  - Password reset flow
+end note
+
+note top of "Tenant & Subscription"
+  Simplified: Tenant = Workspace
+  - No more workspace table
+  - Single membership model
+  - No redundant tenant_id
+end note
+
+note top of "Channels & Messages"
+  Clean hierarchy
+  - channels → tenant_id only
+  - messages → channel_id only
+  - No workspace_id redundancy
+end note
+
+note top of "Authorization (RBAC)"
+  Two-level RBAC
+  - Tenant-level roles
+  - Channel-level roles
+  - No workspace roles
+end note
+
 @enduml

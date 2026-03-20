@@ -10,58 +10,46 @@ entity tenant_members {
   status : varchar(30)
   joined_at : datetime
   invited_by : bigint <<FK>>
-  invited_at : datetime
-  removed_at : datetime
-  created_at : datetime
-  updated_at : datetime
-}
-
-entity workspace_members {
-  * id : bigint <<PK>>
-  --
-  tenant_id : bigint <<FK>>
-  workspace_id : bigint <<FK>>
-  user_id : bigint <<FK>>
-  status : varchar(30)
-  joined_at : datetime
-  invited_by : bigint <<FK>>
-  invited_at : datetime
   left_at : datetime
   removed_at : datetime
   created_at : datetime
   updated_at : datetime
 }
+
+note right of tenant_members::status
+  active | suspended | left
+end note
 
 entity channel_members {
   * id : bigint <<PK>>
   --
-  tenant_id : bigint <<FK>>
-  workspace_id : bigint <<FK>>
   channel_id : bigint <<FK>>
   user_id : bigint <<FK>>
-  membership_status : varchar(30)
-  joined_at : datetime
-  added_by : bigint <<FK>>
+  status : varchar(30)
   notification_level : varchar(30)
   is_pinned : boolean
   display_order : int
-  hidden_at : datetime
+  joined_at : datetime
+  added_by : bigint <<FK>>
   left_at : datetime
-  removed_at : datetime
   created_at : datetime
   updated_at : datetime
 }
+
+note right of channel_members::notification_level
+  all | mentions | none
+end note
 
 entity invitations {
   * id : bigint <<PK>>
   --
   tenant_id : bigint <<FK>>
-  workspace_id : bigint <<FK>>
+  channel_id : bigint <<FK, nullable>>
   email : varchar(255)
   invite_type : varchar(30)
   token : varchar(255) <<UQ>>
-  intended_role_scope : varchar(30)
-  intended_role_code : varchar(50)
+  role_scope : varchar(30)
+  role_code : varchar(50)
   status : varchar(30)
   expires_at : datetime
   invited_by : bigint <<FK>>
@@ -70,4 +58,17 @@ entity invitations {
   created_at : datetime
   updated_at : datetime
 }
+
+note right of invitations::invite_type
+  tenant | channel
+end note
+
+note right of invitations::role_scope
+  tenant | channel
+end note
+
+note right of invitations::status
+  pending | accepted | expired | revoked
+end note
+
 @enduml
