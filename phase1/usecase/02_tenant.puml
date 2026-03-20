@@ -1,0 +1,59 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Super Admin" as SuperAdmin
+actor "Tenant Admin" as TenantAdmin
+actor "Workspace Admin" as WorkspaceAdmin
+
+rectangle "Context: Tenant & Workspace Foundation" {
+  usecase "Create Tenant" as UC_CreateTenant
+  usecase "Set Default Plan\n(minimum)" as UC_SetDefaultPlan
+  usecase "Configure Tenant Metadata" as UC_TenantMetadata
+  usecase "Create Default Workspace" as UC_CreateDefaultWorkspace
+  usecase "Activate Tenant" as UC_ActivateTenant
+  usecase "Suspend / Lock Tenant" as UC_SuspendTenant
+  usecase "Unlock Tenant" as UC_UnlockTenant
+
+  usecase "Create Workspace" as UC_CreateWorkspace
+  usecase "Update Workspace Info" as UC_UpdateWorkspace
+  usecase "Disable / Soft Delete Workspace" as UC_DisableWorkspace
+  usecase "Invite Member to Workspace" as UC_InviteWorkspaceMember
+  usecase "View Workspace Member List" as UC_ViewWorkspaceMembers
+  usecase "View Member Role & Status" as UC_ViewRoleStatus
+  usecase "Configure Workspace Basic Rules" as UC_WorkspaceRules
+}
+
+SuperAdmin --> UC_CreateTenant
+SuperAdmin --> UC_ActivateTenant
+SuperAdmin --> UC_SuspendTenant
+SuperAdmin --> UC_UnlockTenant
+SuperAdmin --> UC_CreateWorkspace
+SuperAdmin --> UC_UpdateWorkspace
+SuperAdmin --> UC_DisableWorkspace
+SuperAdmin --> UC_InviteWorkspaceMember
+SuperAdmin --> UC_ViewWorkspaceMembers
+SuperAdmin --> UC_WorkspaceRules
+
+TenantAdmin --> UC_CreateWorkspace
+TenantAdmin --> UC_UpdateWorkspace
+TenantAdmin --> UC_DisableWorkspace
+TenantAdmin --> UC_InviteWorkspaceMember
+TenantAdmin --> UC_ViewWorkspaceMembers
+TenantAdmin --> UC_ViewRoleStatus
+TenantAdmin --> UC_WorkspaceRules
+
+WorkspaceAdmin --> UC_CreateWorkspace
+WorkspaceAdmin --> UC_UpdateWorkspace
+WorkspaceAdmin --> UC_InviteWorkspaceMember
+WorkspaceAdmin --> UC_ViewWorkspaceMembers
+WorkspaceAdmin --> UC_ViewRoleStatus
+WorkspaceAdmin --> UC_WorkspaceRules
+
+UC_CreateTenant ..> UC_SetDefaultPlan : <<include>>
+UC_CreateTenant ..> UC_TenantMetadata : <<include>>
+UC_CreateTenant ..> UC_CreateDefaultWorkspace : <<include>>
+UC_ViewWorkspaceMembers ..> UC_ViewRoleStatus : <<include>>
+
+@enduml

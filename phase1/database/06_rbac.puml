@@ -1,0 +1,60 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity roles {
+  * id : bigint <<PK>>
+  --
+  tenant_id : bigint <<FK>>
+  scope_type : varchar(30)
+  code : varchar(50)
+  name : varchar(100)
+  is_system : boolean
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity permissions {
+  * id : bigint <<PK>>
+  --
+  scope_type : varchar(30)
+  code : varchar(100) <<UQ>>
+  name : varchar(255)
+  description : varchar(500)
+}
+
+entity role_permissions {
+  * id : bigint <<PK>>
+  --
+  role_id : bigint <<FK>>
+  permission_id : bigint <<FK>>
+}
+
+entity tenant_member_roles {
+  * id : bigint <<PK>>
+  --
+  tenant_member_id : bigint <<FK>>
+  role_id : bigint <<FK>>
+}
+
+entity workspace_member_roles {
+  * id : bigint <<PK>>
+  --
+  workspace_member_id : bigint <<FK>>
+  role_id : bigint <<FK>>
+}
+
+entity channel_member_roles {
+  * id : bigint <<PK>>
+  --
+  channel_member_id : bigint <<FK>>
+  role_id : bigint <<FK>>
+}
+
+roles ||--o{ role_permissions
+permissions ||--o{ role_permissions
+
+roles ||--o{ tenant_member_roles
+roles ||--o{ workspace_member_roles
+roles ||--o{ channel_member_roles
+@enduml

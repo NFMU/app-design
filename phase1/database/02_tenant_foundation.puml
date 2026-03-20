@@ -1,0 +1,60 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity plans {
+  * id : bigint <<PK>>
+  --
+  code : varchar(50) <<UQ>>
+  name : varchar(100)
+  status : varchar(30)
+  config_json : json
+  created_at : datetime
+  updated_at : datetime
+}
+
+entity tenants {
+  * id : bigint <<PK>>
+  --
+  uuid : char(36) <<UQ>>
+  plan_id : bigint <<FK>>
+  owner_user_id : bigint <<FK>>
+  name : varchar(255)
+  tenant_code : varchar(100) <<UQ>>
+  domain : varchar(255)
+  status : varchar(30)
+  timezone : varchar(100)
+  locale : varchar(20)
+  branding_json : json
+  policy_flags_json : json
+  metadata_json : json
+  activated_at : datetime
+  suspended_at : datetime
+  created_at : datetime
+  updated_at : datetime
+  deleted_at : datetime
+}
+
+entity workspaces {
+  * id : bigint <<PK>>
+  --
+  uuid : char(36) <<UQ>>
+  tenant_id : bigint <<FK>>
+  code : varchar(100)
+  name : varchar(255)
+  description : text
+  logo_url : varchar(500)
+  status : varchar(30)
+  is_default : boolean
+  rules_json : json
+  metadata_json : json
+  created_by : bigint <<FK>>
+  updated_by : bigint <<FK>>
+  created_at : datetime
+  updated_at : datetime
+  deleted_at : datetime
+}
+
+plans ||--o{ tenants
+tenants ||--o{ workspaces
+@enduml

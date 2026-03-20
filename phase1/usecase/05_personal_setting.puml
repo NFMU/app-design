@@ -1,0 +1,46 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Member" as Member
+actor "Channel Admin" as ChannelAdmin
+actor "Workspace Admin" as WorkspaceAdmin
+actor "Tenant Admin" as TenantAdmin
+actor "Super Admin" as SuperAdmin
+
+rectangle "Context: Personal Profile & Settings" {
+  usecase "Update Display Name" as UC_UpdateName
+  usecase "Update Avatar" as UC_UpdateAvatar
+  usecase "Update Job Title" as UC_UpdateJobTitle
+  usecase "Update Internal Phone" as UC_UpdatePhone
+  usecase "Update Language" as UC_UpdateLanguage
+  usecase "Update Timezone" as UC_UpdateTimezone
+
+  usecase "Set Online / Offline Status" as UC_SetPresence
+  usecase "Configure Basic Notification" as UC_NotificationSetting
+  usecase "Manage Pinned Channels" as UC_ManagePinnedChannels
+  usecase "Manage Basic Personal Preferences" as UC_PersonalPreference
+}
+
+Member --> UC_UpdateName
+Member --> UC_UpdateAvatar
+Member --> UC_UpdateJobTitle
+Member --> UC_UpdatePhone
+Member --> UC_UpdateLanguage
+Member --> UC_UpdateTimezone
+Member --> UC_SetPresence
+Member --> UC_NotificationSetting
+Member --> UC_ManagePinnedChannels
+Member --> UC_PersonalPreference
+
+ChannelAdmin --> UC_PersonalPreference
+WorkspaceAdmin --> UC_PersonalPreference
+TenantAdmin --> UC_PersonalPreference
+SuperAdmin --> UC_PersonalPreference
+
+UC_PersonalPreference ..> UC_SetPresence : <<include>>
+UC_PersonalPreference ..> UC_NotificationSetting : <<include>>
+UC_PersonalPreference ..> UC_ManagePinnedChannels : <<include>>
+
+@enduml

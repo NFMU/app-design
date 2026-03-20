@@ -1,0 +1,55 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Super Admin" as SuperAdmin
+actor "Tenant Admin" as TenantAdmin
+actor "Workspace Admin" as WorkspaceAdmin
+actor "Channel Admin" as ChannelAdmin
+actor "Member" as Member
+
+rectangle "Context: RBAC Enforcement" {
+  usecase "Manage Platform Scope" as UC_PlatformScope
+  usecase "Manage Tenant / Workspace Scope" as UC_TenantWorkspaceScope
+  usecase "Manage Channel Scope" as UC_ChannelScope
+  usecase "Manage Self Scope" as UC_SelfScope
+  usecase "Authorize API Action" as UC_ApiAuth
+  usecase "Authorize UI Action" as UC_UiAuth
+  usecase "Authorize Socket / Event Action" as UC_SocketAuth
+}
+
+SuperAdmin --> UC_PlatformScope
+SuperAdmin --> UC_TenantWorkspaceScope
+SuperAdmin --> UC_ChannelScope
+SuperAdmin --> UC_SelfScope
+
+TenantAdmin --> UC_TenantWorkspaceScope
+TenantAdmin --> UC_ChannelScope
+TenantAdmin --> UC_SelfScope
+
+WorkspaceAdmin --> UC_TenantWorkspaceScope
+WorkspaceAdmin --> UC_ChannelScope
+WorkspaceAdmin --> UC_SelfScope
+
+ChannelAdmin --> UC_ChannelScope
+ChannelAdmin --> UC_SelfScope
+
+Member --> UC_SelfScope
+
+UC_PlatformScope ..> UC_ApiAuth : <<include>>
+UC_TenantWorkspaceScope ..> UC_ApiAuth : <<include>>
+UC_ChannelScope ..> UC_ApiAuth : <<include>>
+UC_SelfScope ..> UC_ApiAuth : <<include>>
+
+UC_PlatformScope ..> UC_UiAuth : <<include>>
+UC_TenantWorkspaceScope ..> UC_UiAuth : <<include>>
+UC_ChannelScope ..> UC_UiAuth : <<include>>
+UC_SelfScope ..> UC_UiAuth : <<include>>
+
+UC_PlatformScope ..> UC_SocketAuth : <<include>>
+UC_TenantWorkspaceScope ..> UC_SocketAuth : <<include>>
+UC_ChannelScope ..> UC_SocketAuth : <<include>>
+UC_SelfScope ..> UC_SocketAuth : <<include>>
+
+@enduml

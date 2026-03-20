@@ -1,0 +1,39 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Guest / Invited User" as Guest
+actor "Member" as Member
+actor "Tenant Admin" as TenantAdmin
+
+rectangle "Context: Identity & Access" {
+  usecase "Register Account" as UC_Register
+  usecase "Accept Invitation" as UC_AcceptInvite
+  usecase "Login" as UC_Login
+  usecase "Logout" as UC_Logout
+  usecase "Forgot Password" as UC_ForgotPassword
+  usecase "Change Password" as UC_ChangePassword
+  usecase "View Active Session" as UC_ViewSession
+  usecase "Logout Current Device" as UC_LogoutCurrent
+}
+
+Guest --> UC_Register
+Guest --> UC_AcceptInvite
+Guest --> UC_Login
+Guest --> UC_ForgotPassword
+
+Member --> UC_Login
+Member --> UC_Logout
+Member --> UC_ChangePassword
+Member --> UC_ViewSession
+Member --> UC_LogoutCurrent
+
+TenantAdmin --> UC_AcceptInvite
+
+UC_AcceptInvite ..> UC_Register : <<extend>>
+UC_ChangePassword ..> UC_Login : <<include>>
+UC_ViewSession ..> UC_Login : <<include>>
+UC_LogoutCurrent ..> UC_Login : <<include>>
+
+@enduml

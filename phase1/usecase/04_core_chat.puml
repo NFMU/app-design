@@ -1,0 +1,55 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Member" as Member
+actor "Channel Admin" as ChannelAdmin
+actor "Workspace Admin" as WorkspaceAdmin
+actor "Tenant Admin" as TenantAdmin
+
+rectangle "Context: Core Chat" {
+  usecase "Open Channel Conversation" as UC_OpenConversation
+  usecase "View Message List" as UC_ViewMessages
+  usecase "Load More Messages\n(pagination / infinite scroll)" as UC_LoadMore
+  usecase "Send Text Message" as UC_SendMessage
+  usecase "Receive Real-time Message" as UC_ReceiveRealtime
+  usecase "View Sender / Time / Content /\nEdited Status" as UC_ViewMessageMeta
+  usecase "Edit Own Message" as UC_EditOwnMessage
+  usecase "Soft Delete Own Message" as UC_DeleteOwnMessage
+  usecase "Edit Others' Message\n(by policy)" as UC_EditOthersMessage
+  usecase "Soft Delete Others' Message\n(by policy)" as UC_DeleteOthersMessage
+  usecase "Mark Channel as Read" as UC_MarkRead
+  usecase "Show Unread Count" as UC_UnreadCount
+  usecase "Receive In-session Notification" as UC_InSessionNotification
+}
+
+Member --> UC_OpenConversation
+Member --> UC_ViewMessages
+Member --> UC_LoadMore
+Member --> UC_SendMessage
+Member --> UC_ReceiveRealtime
+Member --> UC_ViewMessageMeta
+Member --> UC_EditOwnMessage
+Member --> UC_DeleteOwnMessage
+Member --> UC_MarkRead
+Member --> UC_UnreadCount
+Member --> UC_InSessionNotification
+
+ChannelAdmin --> UC_EditOthersMessage
+ChannelAdmin --> UC_DeleteOthersMessage
+
+WorkspaceAdmin --> UC_EditOthersMessage
+WorkspaceAdmin --> UC_DeleteOthersMessage
+
+TenantAdmin --> UC_EditOthersMessage
+TenantAdmin --> UC_DeleteOthersMessage
+
+UC_OpenConversation ..> UC_ViewMessages : <<include>>
+UC_ViewMessages ..> UC_ViewMessageMeta : <<include>>
+UC_ViewMessages ..> UC_LoadMore : <<extend>>
+UC_SendMessage ..> UC_ReceiveRealtime : <<include>>
+UC_MarkRead ..> UC_UnreadCount : <<include>>
+UC_ReceiveRealtime ..> UC_InSessionNotification : <<include>>
+
+@enduml

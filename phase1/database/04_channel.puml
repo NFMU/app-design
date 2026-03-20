@@ -1,0 +1,49 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity channels {
+  * id : bigint <<PK>>
+  --
+  uuid : char(36) <<UQ>>
+  tenant_id : bigint <<FK>>
+  workspace_id : bigint <<FK>>
+  code : varchar(100)
+  name : varchar(255)
+  slug : varchar(255)
+  channel_type : varchar(30)
+  description : text
+  topic : varchar(500)
+  avatar_url : varchar(500)
+  status : varchar(30)
+  rules_json : json
+  metadata_json : json
+  created_by : bigint <<FK>>
+  updated_by : bigint <<FK>>
+  created_at : datetime
+  updated_at : datetime
+  deleted_at : datetime
+}
+
+entity channel_members {
+  * id : bigint <<PK>>
+  --
+  tenant_id : bigint <<FK>>
+  workspace_id : bigint <<FK>>
+  channel_id : bigint <<FK>>
+  user_id : bigint <<FK>>
+  membership_status : varchar(30)
+  joined_at : datetime
+  added_by : bigint <<FK>>
+  notification_level : varchar(30)
+  is_pinned : boolean
+  display_order : int
+  hidden_at : datetime
+  left_at : datetime
+  removed_at : datetime
+  created_at : datetime
+  updated_at : datetime
+}
+
+channels ||--o{ channel_members
+@enduml

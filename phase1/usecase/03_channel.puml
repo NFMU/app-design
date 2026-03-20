@@ -1,0 +1,56 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Tenant Admin" as TenantAdmin
+actor "Workspace Admin" as WorkspaceAdmin
+actor "Channel Admin" as ChannelAdmin
+actor "Member" as Member
+
+rectangle "Context: Channel Management" {
+  usecase "Create Public Channel" as UC_CreatePublicChannel
+  usecase "Create Private Channel" as UC_CreatePrivateChannel
+  usecase "Update Channel Info\n(name, description, topic, avatar)" as UC_UpdateChannel
+  usecase "Add Member to Channel" as UC_AddChannelMember
+  usecase "Remove Member from Channel" as UC_RemoveChannelMember
+  usecase "Assign Channel Role\n(owner/admin/member)" as UC_AssignChannelRole
+  usecase "Pin Channel" as UC_PinChannel
+  usecase "Hide Channel" as UC_HideChannel
+  usecase "Leave Channel" as UC_LeaveChannel
+  usecase "Save Personal Display Priority" as UC_SaveChannelPriority
+  usecase "Configure Channel Rules" as UC_ChannelRules
+}
+
+TenantAdmin --> UC_CreatePublicChannel
+TenantAdmin --> UC_CreatePrivateChannel
+TenantAdmin --> UC_UpdateChannel
+TenantAdmin --> UC_AddChannelMember
+TenantAdmin --> UC_RemoveChannelMember
+TenantAdmin --> UC_AssignChannelRole
+TenantAdmin --> UC_ChannelRules
+
+WorkspaceAdmin --> UC_CreatePublicChannel
+WorkspaceAdmin --> UC_CreatePrivateChannel
+WorkspaceAdmin --> UC_UpdateChannel
+WorkspaceAdmin --> UC_AddChannelMember
+WorkspaceAdmin --> UC_RemoveChannelMember
+WorkspaceAdmin --> UC_AssignChannelRole
+WorkspaceAdmin --> UC_ChannelRules
+
+ChannelAdmin --> UC_UpdateChannel
+ChannelAdmin --> UC_AddChannelMember
+ChannelAdmin --> UC_RemoveChannelMember
+ChannelAdmin --> UC_AssignChannelRole
+ChannelAdmin --> UC_ChannelRules
+ChannelAdmin --> UC_PinChannel
+ChannelAdmin --> UC_HideChannel
+ChannelAdmin --> UC_LeaveChannel
+ChannelAdmin --> UC_SaveChannelPriority
+
+Member --> UC_PinChannel
+Member --> UC_HideChannel
+Member --> UC_LeaveChannel
+Member --> UC_SaveChannelPriority
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml context
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Super Admin" as SuperAdmin
+actor "Tenant Admin" as TenantAdmin
+actor "Workspace Admin" as WorkspaceAdmin
+actor "Channel Admin" as ChannelAdmin
+actor "Member" as Member
+
+rectangle "Phase 1 - Core Chat Foundation" {
+  usecase "Identity & Access" as UC_Identity
+  usecase "Tenant & Workspace Foundation" as UC_TenantWorkspace
+  usecase "Channel Management" as UC_Channel
+  usecase "Core Chat" as UC_Chat
+  usecase "Personal Profile & Settings" as UC_Profile
+  usecase "RBAC Enforcement" as UC_RBAC
+}
+
+SuperAdmin --> UC_Identity
+SuperAdmin --> UC_TenantWorkspace
+SuperAdmin --> UC_Channel
+SuperAdmin --> UC_Chat
+SuperAdmin --> UC_Profile
+SuperAdmin --> UC_RBAC
+
+TenantAdmin --> UC_Identity
+TenantAdmin --> UC_TenantWorkspace
+TenantAdmin --> UC_Channel
+TenantAdmin --> UC_Chat
+TenantAdmin --> UC_Profile
+TenantAdmin --> UC_RBAC
+
+WorkspaceAdmin --> UC_Identity
+WorkspaceAdmin --> UC_TenantWorkspace
+WorkspaceAdmin --> UC_Channel
+WorkspaceAdmin --> UC_Chat
+WorkspaceAdmin --> UC_Profile
+WorkspaceAdmin --> UC_RBAC
+
+ChannelAdmin --> UC_Identity
+ChannelAdmin --> UC_Channel
+ChannelAdmin --> UC_Chat
+ChannelAdmin --> UC_Profile
+ChannelAdmin --> UC_RBAC
+
+Member --> UC_Identity
+Member --> UC_Chat
+Member --> UC_Profile
+Member --> UC_RBAC
+Member --> UC_Channel
+
+@enduml
