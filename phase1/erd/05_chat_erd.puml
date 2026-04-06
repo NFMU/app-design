@@ -1,121 +1,53 @@
 @startuml 05_chat_erd
 hide circle
+hide empty members
+skinparam shadowing false
 skinparam linetype ortho
-skinparam entity {
-  FontSize 12
-  FontName Helvetica
-  BorderColor #78909C
-  BackgroundColor #FAFAFA
+
+skinparam class {
+  FontSize 13
+  FontName Arial
+  FontStyle bold
+  FontColor #212121
+  BorderThickness 1.5
+  RoundCorner 10
 }
-skinparam note {
-  BackgroundColor #FFFDE7
-  BorderColor #FBC02D
-  FontSize 11
-}
-
-title Chat & Messaging - ERD
-
-' =============================================
-' STUB ENTITIES (referenced from other domains)
-' =============================================
-
-' stub — ref only
-entity users #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  email : varchar(255)
+skinparam arrow {
+  Color #90A4AE
+  FontSize 10
+  FontColor #546E7A
 }
 
-' stub — ref only
-entity channels #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  name : varchar(255)
-}
+title <size:15><b>Chat & Messaging</b></size>\n
 
-' =============================================
-' DOMAIN ENTITIES
-' =============================================
+' ── STUB ENTITIES ────────────────────────────
 
-entity messages #FCE4EC {
-  * id : bigint <<PK>>
-  --
-  uuid : char(36) <<UQ>>
-  channel_id : bigint <<FK>>
-  sender_user_id : bigint <<FK>>
-  parent_message_id : bigint <<FK, nullable>>
-  message_type : varchar(30)
-  content_text : text
-  metadata_json : json
-  edited_at : datetime
-  edited_by : bigint <<FK, nullable>>
-  deleted_at : datetime
-  deleted_by : bigint <<FK, nullable>>
-  created_at : datetime
-}
+class users    #ECEFF1 ##B0BEC5
+class channels #ECEFF1 ##B0BEC5
 
-note right of messages::message_type
-  text | system | file
-end note
+' ── DOMAIN ENTITIES ──────────────────────────
 
-note right of messages::metadata_json
-  {
-    "mentions": [user_ids],
-    "reactions": {...}
-  }
-end note
+class messages            #FADBD8 ##7B241C
+class message_reads       #FADBD8 ##7B241C
+class message_pins        #FADBD8 ##7B241C
+class message_attachments #FADBD8 ##7B241C
 
-entity message_reads #FCE4EC {
-  * id : bigint <<PK>>
-  --
-  channel_id : bigint <<FK>>
-  user_id : bigint <<FK>>
-  last_read_message_id : bigint <<FK>>
-  last_read_at : datetime
-  updated_at : datetime
-}
+' ── RELATIONSHIPS ────────────────────────────
 
-entity message_pins #FCE4EC {
-  * id : bigint <<PK>>
-  --
-  channel_id : bigint <<FK>>
-  message_id : bigint <<FK>>
-  pinned_by : bigint <<FK>>
-  pinned_at : datetime
-  unpinned_at : datetime
-}
-
-entity message_attachments #FCE4EC {
-  * id : bigint <<PK>>
-  --
-  message_id : bigint <<FK>>
-  file_name : varchar(255)
-  mime_type : varchar(100)
-  file_size : bigint
-  storage_path : varchar(1000)
-  url : varchar(1000)
-  thumbnail_url : varchar(1000)
-  created_at : datetime
-}
-
-' =============================================
-' RELATIONSHIPS
-' =============================================
-
-' Messages
-channels ||--o{ messages : "has"
-users ||--o{ messages : "sends"
-messages ||--o{ messages : "reply to"
+' Core
+channels ||--o{ messages            : "has"
+users    ||--o{ messages            : "sends"
+messages ||--o{ messages            : "reply to"
 
 ' Reads
-channels ||--o{ message_reads : "tracks"
-users ||--o{ message_reads : "reads"
-messages ||--o{ message_reads : "tracked by"
+channels ||--o{ message_reads       : "tracks"
+users    ||--o{ message_reads       : "reads"
+messages ||--o{ message_reads       : "tracked by"
 
 ' Pins
-channels ||--o{ message_pins : "has"
-messages ||--o{ message_pins : "pinned as"
-users ||--o{ message_pins : "pins"
+channels ||--o{ message_pins        : "has"
+messages ||--o{ message_pins        : "pinned as"
+users    ||--o{ message_pins        : "pins"
 
 ' Attachments
 messages ||--o{ message_attachments : "has"

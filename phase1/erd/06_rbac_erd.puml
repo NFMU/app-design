@@ -1,143 +1,55 @@
 @startuml 06_rbac_erd
 hide circle
+hide empty members
+skinparam shadowing false
 skinparam linetype ortho
-skinparam entity {
-  FontSize 12
-  FontName Helvetica
-  BorderColor #78909C
-  BackgroundColor #FAFAFA
+
+skinparam class {
+  FontSize 13
+  FontName Arial
+  FontStyle bold
+  FontColor #212121
+  BorderThickness 1.5
+  RoundCorner 10
 }
-skinparam note {
-  BackgroundColor #FFFDE7
-  BorderColor #FBC02D
-  FontSize 11
-}
-
-title Role-Based Access Control (RBAC) - ERD
-
-' =============================================
-' STUB ENTITIES (referenced from other domains)
-' =============================================
-
-' stub — ref only
-entity users #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  email : varchar(255)
+skinparam arrow {
+  Color #90A4AE
+  FontSize 10
+  FontColor #546E7A
 }
 
-' stub — ref only
-entity tenants #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  name : varchar(255)
-}
+title <size:15><b>Role-Based Access Control (RBAC)</b></size>\n
 
-' stub — ref only
-entity tenant_members #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  tenant_id : bigint <<FK>>
-  user_id : bigint <<FK>>
-}
+' ── STUB ENTITIES ────────────────────────────
 
-' stub — ref only
-entity channel_members #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  channel_id : bigint <<FK>>
-  user_id : bigint <<FK>>
-}
+class users           #ECEFF1 ##B0BEC5
+class tenants         #ECEFF1 ##B0BEC5
+class tenant_members  #ECEFF1 ##B0BEC5
+class channel_members #ECEFF1 ##B0BEC5
 
-' =============================================
-' DOMAIN ENTITIES
-' =============================================
+' ── DOMAIN ENTITIES ──────────────────────────
 
-entity roles #F3E5F5 {
-  * id : bigint <<PK>>
-  --
-  tenant_id : bigint <<FK, nullable>>
-  scope_type : varchar(30)
-  code : varchar(50)
-  name : varchar(100)
-  description : varchar(500)
-  is_system : boolean
-  created_at : datetime
-  updated_at : datetime
-}
+class roles                #E8DAEF ##6C3483
+class permissions          #E8DAEF ##6C3483
+class role_permissions     #E8DAEF ##6C3483
+class tenant_member_roles  #E8DAEF ##6C3483
+class channel_member_roles #E8DAEF ##6C3483
 
-note right of roles::scope_type
-  tenant | channel
-end note
-
-note right of roles::is_system
-  true = built-in (owner, admin, member)
-  false = custom roles
-end note
-
-entity permissions #F3E5F5 {
-  * id : bigint <<PK>>
-  --
-  scope_type : varchar(30)
-  code : varchar(100) <<UQ>>
-  name : varchar(255)
-  description : varchar(500)
-  created_at : datetime
-}
-
-note right of permissions::scope_type
-  tenant | channel
-end note
-
-note right of permissions::code
-  tenant.member.invite
-  tenant.settings.update
-  channel.message.send
-  channel.member.remove
-end note
-
-entity role_permissions #F3E5F5 {
-  * id : bigint <<PK>>
-  --
-  role_id : bigint <<FK>>
-  permission_id : bigint <<FK>>
-}
-
-entity tenant_member_roles #F3E5F5 {
-  * id : bigint <<PK>>
-  --
-  tenant_member_id : bigint <<FK>>
-  role_id : bigint <<FK>>
-  assigned_by : bigint <<FK>>
-  assigned_at : datetime
-}
-
-entity channel_member_roles #F3E5F5 {
-  * id : bigint <<PK>>
-  --
-  channel_member_id : bigint <<FK>>
-  role_id : bigint <<FK>>
-  assigned_by : bigint <<FK>>
-  assigned_at : datetime
-}
-
-' =============================================
-' RELATIONSHIPS
-' =============================================
+' ── RELATIONSHIPS ────────────────────────────
 
 ' Role definitions
-tenants ||--o{ roles : "defines"
-roles ||--o{ role_permissions : "has"
-permissions ||--o{ role_permissions : "granted via"
+tenants         ||--o{ roles                : "defines"
+roles           ||--o{ role_permissions     : "has"
+permissions     ||--o{ role_permissions     : "granted via"
 
-' Tenant-level role assignments
-tenant_members ||--o{ tenant_member_roles : "assigned"
-roles ||--o{ tenant_member_roles : "applied to"
-users ||--o{ tenant_member_roles : "assigned by"
+' Tenant-level assignments
+tenant_members  ||--o{ tenant_member_roles  : "assigned"
+roles           ||--o{ tenant_member_roles  : "applied to"
+users           ||--o{ tenant_member_roles  : "assigned by"
 
-' Channel-level role assignments
+' Channel-level assignments
 channel_members ||--o{ channel_member_roles : "assigned"
-roles ||--o{ channel_member_roles : "applied to"
-users ||--o{ channel_member_roles : "assigned by"
+roles           ||--o{ channel_member_roles : "applied to"
+users           ||--o{ channel_member_roles : "assigned by"
 
 @enduml

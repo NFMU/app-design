@@ -1,110 +1,38 @@
 @startuml 02_tenant_erd
 hide circle
+hide empty members
+skinparam shadowing false
 skinparam linetype ortho
-skinparam entity {
-  FontSize 12
-  FontName Helvetica
-  BorderColor #78909C
-  BackgroundColor #FAFAFA
+
+skinparam class {
+  FontSize 13
+  FontName Arial
+  FontStyle bold
+  FontColor #212121
+  BorderThickness 1.5
+  RoundCorner 10
 }
-skinparam note {
-  BackgroundColor #FFFDE7
-  BorderColor #FBC02D
-  FontSize 11
-}
-
-title Tenant & Subscription - ERD
-
-' =============================================
-' STUB ENTITIES (referenced from other domains)
-' =============================================
-
-' stub — ref only
-entity users #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  email : varchar(255)
+skinparam arrow {
+  Color #90A4AE
+  FontSize 10
+  FontColor #546E7A
 }
 
-' =============================================
-' DOMAIN ENTITIES
-' =============================================
+title <size:15><b>Tenant & Subscription</b></size>\n
 
-entity plans #E8F5E9 {
-  * id : bigint <<PK>>
-  --
-  code : varchar(50) <<UQ>>
-  name : varchar(100)
-  description : text
-  max_members : int
-  max_channels : int
-  max_storage_gb : int
-  features_json : json
-  status : varchar(30)
-  created_at : datetime
-  updated_at : datetime
-}
+' ── STUB ENTITIES ────────────────────────────
 
-note right of plans::status
-  active | deprecated
-end note
+class users #ECEFF1 ##B0BEC5
 
-note right of plans::features_json
-  {
-    "custom_roles": true,
-    "analytics": false,
-    "sso": true
-  }
-end note
+' ── DOMAIN ENTITIES ──────────────────────────
 
-entity tenants #E8F5E9 {
-  * id : bigint <<PK>>
-  --
-  uuid : char(36) <<UQ>>
-  plan_id : bigint <<FK>>
-  owner_user_id : bigint <<FK>>
-  created_by : bigint <<FK>>
-  name : varchar(255)
-  slug : varchar(100) <<UQ>>
-  domain : varchar(255)
-  status : varchar(30)
-  timezone : varchar(50)
-  locale : varchar(10)
-  branding_json : json
-  settings_json : json
-  activated_at : datetime
-  suspended_at : datetime
-  created_at : datetime
-  updated_at : datetime
-  deleted_at : datetime
-}
+class plans   #D5F5E3 ##1E8449
+class tenants #D5F5E3 ##1E8449
 
-note right of tenants::status
-  active | suspended | deleted
-end note
+' ── RELATIONSHIPS ────────────────────────────
 
-note right of tenants::branding_json
-  {
-    "logo_url": "...",
-    "primary_color": "#...",
-    "theme": "light|dark"
-  }
-end note
-
-note right of tenants::settings_json
-  {
-    "invite_policy": "admin_only|members",
-    "retention_days": 90,
-    "allowed_domains": ["@company.com"]
-  }
-end note
-
-' =============================================
-' RELATIONSHIPS
-' =============================================
-
-plans ||--o{ tenants : "applied to"
-users ||--o{ tenants : "creates"
-users ||--o{ tenants : "owns"
+plans  ||--o{ tenants : "applied to"
+users  ||--o{ tenants : "creates"
+users  ||--o{ tenants : "owns"
 
 @enduml

@@ -1,110 +1,41 @@
 @startuml 04_channel_erd
 hide circle
+hide empty members
+skinparam shadowing false
 skinparam linetype ortho
-skinparam entity {
-  FontSize 12
-  FontName Helvetica
-  BorderColor #78909C
-  BackgroundColor #FAFAFA
+
+skinparam class {
+  FontSize 13
+  FontName Arial
+  FontStyle bold
+  FontColor #212121
+  BorderThickness 1.5
+  RoundCorner 10
 }
-skinparam note {
-  BackgroundColor #FFFDE7
-  BorderColor #FBC02D
-  FontSize 11
-}
-
-title Channel Management - ERD
-
-' =============================================
-' STUB ENTITIES (referenced from other domains)
-' =============================================
-
-' stub — ref only
-entity users #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  email : varchar(255)
+skinparam arrow {
+  Color #90A4AE
+  FontSize 10
+  FontColor #546E7A
 }
 
-' stub — ref only
-entity tenants #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  name : varchar(255)
-}
+title <size:15><b>Channel Management</b></size>\n
 
-' =============================================
-' DOMAIN ENTITIES
-' =============================================
+' ── STUB ENTITIES ────────────────────────────
 
-entity channels #FFF3E0 {
-  * id : bigint <<PK>>
-  --
-  uuid : char(36) <<UQ>>
-  tenant_id : bigint <<FK>>
-  created_by : bigint <<FK>>
-  name : varchar(255)
-  slug : varchar(255) <<UQ>>
-  channel_type : varchar(30)
-  description : text
-  topic : varchar(500)
-  avatar_url : varchar(500)
-  status : varchar(30)
-  settings_json : json
-  created_at : datetime
-  updated_at : datetime
-  deleted_at : datetime
-}
+class users   #ECEFF1 ##B0BEC5
+class tenants #ECEFF1 ##B0BEC5
 
-note right of channels::channel_type
-  public | private | direct_message
-end note
+' ── DOMAIN ENTITIES ──────────────────────────
 
-note right of channels::status
-  active | archived
-end note
+class channels        #FDEBD0 ##A04000
+class channel_members #FDEBD0 ##A04000
 
-note right of channels::settings_json
-  {
-    "allow_threads": true,
-    "read_only": false,
-    "retention_days": null
-  }
-end note
+' ── RELATIONSHIPS ────────────────────────────
 
-entity channel_members #FFF3E0 {
-  * id : bigint <<PK>>
-  --
-  channel_id : bigint <<FK>>
-  user_id : bigint <<FK>>
-  added_by : bigint <<FK>>
-  status : varchar(30)
-  notification_level : varchar(30)
-  is_pinned : boolean
-  display_order : int
-  joined_at : datetime
-  left_at : datetime
-  created_at : datetime
-  updated_at : datetime
-}
-
-note right of channel_members::status
-  active | left
-end note
-
-note right of channel_members::notification_level
-  all | mentions | none
-end note
-
-' =============================================
-' RELATIONSHIPS
-' =============================================
-
-tenants ||--o{ channels : "has"
-users ||--o{ channels : "creates"
-
+tenants  ||--o{ channels        : "has"
+users    ||--o{ channels        : "creates"
 channels ||--o{ channel_members : "has"
-users ||--o{ channel_members : "joins"
-users ||--o{ channel_members : "added by"
+users    ||--o{ channel_members : "joins"
+users    ||--o{ channel_members : "added by"
 
 @enduml

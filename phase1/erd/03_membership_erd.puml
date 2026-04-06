@@ -1,140 +1,53 @@
 @startuml 03_membership_erd
 hide circle
+hide empty members
+skinparam shadowing false
 skinparam linetype ortho
-skinparam entity {
-  FontSize 12
-  FontName Helvetica
-  BorderColor #78909C
-  BackgroundColor #FAFAFA
+
+skinparam class {
+  FontSize 13
+  FontName Arial
+  FontStyle bold
+  FontColor #212121
+  BorderThickness 1.5
+  RoundCorner 10
 }
-skinparam note {
-  BackgroundColor #FFFDE7
-  BorderColor #FBC02D
-  FontSize 11
-}
-
-title Membership & Invitation - ERD
-
-' =============================================
-' STUB ENTITIES (referenced from other domains)
-' =============================================
-
-' stub — ref only
-entity users #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  email : varchar(255)
+skinparam arrow {
+  Color #90A4AE
+  FontSize 10
+  FontColor #546E7A
 }
 
-' stub — ref only
-entity tenants #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  name : varchar(255)
-}
+title <size:15><b>Membership & Invitation</b></size>\n
 
-' stub — ref only
-entity channels #ECEFF1 {
-  * id : bigint <<PK>>
-  --
-  name : varchar(255)
-}
+' ── STUB ENTITIES ────────────────────────────
 
-' =============================================
-' DOMAIN ENTITIES
-' =============================================
+class users    #ECEFF1 ##B0BEC5
+class tenants  #ECEFF1 ##B0BEC5
+class channels #ECEFF1 ##B0BEC5
 
-entity tenant_members #FFF9C4 {
-  * id : bigint <<PK>>
-  --
-  tenant_id : bigint <<FK>>
-  user_id : bigint <<FK>>
-  invited_by : bigint <<FK>>
-  status : varchar(30)
-  joined_at : datetime
-  left_at : datetime
-  removed_at : datetime
-  created_at : datetime
-  updated_at : datetime
-}
+' ── DOMAIN ENTITIES ──────────────────────────
 
-note right of tenant_members::status
-  active | suspended | left
-end note
+class tenant_members #FEF9C3 ##B7950B
+class channel_members #FEF9C3 ##B7950B
+class invitations    #FEF9C3 ##B7950B
 
-entity channel_members #FFF9C4 {
-  * id : bigint <<PK>>
-  --
-  channel_id : bigint <<FK>>
-  user_id : bigint <<FK>>
-  added_by : bigint <<FK>>
-  status : varchar(30)
-  notification_level : varchar(30)
-  is_pinned : boolean
-  display_order : int
-  joined_at : datetime
-  left_at : datetime
-  created_at : datetime
-  updated_at : datetime
-}
-
-note right of channel_members::status
-  active | left
-end note
-
-note right of channel_members::notification_level
-  all | mentions | none
-end note
-
-entity invitations #FFF9C4 {
-  * id : bigint <<PK>>
-  --
-  tenant_id : bigint <<FK>>
-  channel_id : bigint <<FK, nullable>>
-  invited_by : bigint <<FK>>
-  accepted_by_user_id : bigint <<FK, nullable>>
-  email : varchar(255)
-  invite_type : varchar(30)
-  token : varchar(255) <<UQ>>
-  role_scope : varchar(30)
-  role_code : varchar(50)
-  status : varchar(30)
-  expires_at : datetime
-  accepted_at : datetime
-  created_at : datetime
-  updated_at : datetime
-}
-
-note right of invitations::invite_type
-  tenant | channel
-end note
-
-note right of invitations::role_scope
-  tenant | channel
-end note
-
-note right of invitations::status
-  pending | accepted | expired | revoked
-end note
-
-' =============================================
-' RELATIONSHIPS
-' =============================================
+' ── RELATIONSHIPS ────────────────────────────
 
 ' Tenant membership
-tenants ||--o{ tenant_members : "has"
-users ||--o{ tenant_members : "joins"
-users ||--o{ tenant_members : "invited by"
+tenants  ||--o{ tenant_members  : "has"
+users    ||--o{ tenant_members  : "joins"
+users    ||--o{ tenant_members  : "invited by"
 
 ' Channel membership
 channels ||--o{ channel_members : "has"
-users ||--o{ channel_members : "joins"
-users ||--o{ channel_members : "added by"
+users    ||--o{ channel_members : "joins"
+users    ||--o{ channel_members : "added by"
 
 ' Invitations
-tenants ||--o{ invitations : "sends"
-channels ||--o{ invitations : "targets"
-users ||--o{ invitations : "invited by"
-users ||--o{ invitations : "accepted by"
+tenants  ||--o{ invitations     : "sends"
+channels ||--o{ invitations     : "targets"
+users    ||--o{ invitations     : "invited by"
+users    ||--o{ invitations     : "accepted by"
 
 @enduml
