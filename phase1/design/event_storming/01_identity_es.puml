@@ -1,0 +1,117 @@
+@startuml 01_identity_es
+title Identity Domain - Event Storming
+left to right direction
+
+skinparam defaultTextAlignment center
+skinparam rectangle {
+  RoundCorner 8
+  BackgroundColor<<Command>>       #1565C0
+  FontColor<<Command>>             white
+  BorderColor<<Command>>           #0D47A1
+  BackgroundColor<<Event>>         #E65100
+  FontColor<<Event>>               white
+  BorderColor<<Event>>             #BF360C
+  BackgroundColor<<Aggregate>>     #F9A825
+  FontColor<<Aggregate>>           #212121
+  BorderColor<<Aggregate>>         #F57F17
+  BackgroundColor<<Policy>>        #6A1B9A
+  FontColor<<Policy>>              white
+  BorderColor<<Policy>>            #4A148C
+  BackgroundColor<<ReadModel>>     #1B5E20
+  FontColor<<ReadModel>>           white
+  BorderColor<<ReadModel>>         #194D19
+  BackgroundColor<<External>>      #880E4F
+  FontColor<<External>>            white
+  BorderColor<<External>>          #560027
+}
+skinparam actor {
+  BackgroundColor #FFFDE7
+  BorderColor     #F9A825
+}
+skinparam ArrowColor #555555
+
+actor "Guest"  as guest
+actor "User"   as user
+
+' ============================================================
+' AGGREGATE
+' ============================================================
+rectangle "User\nAggregate" <<Aggregate>> as aggUser
+
+' ============================================================
+' REGISTER FLOW
+' ============================================================
+rectangle "RegisterUser\n[email, password]"  <<Command>>   as cmdRegister
+rectangle "UserRegistered"                    <<Event>>     as evtRegistered
+rectangle "SendVerificationEmail"             <<Policy>>    as polVerify
+rectangle "EmailService"                      <<External>>  as sysEmail
+rectangle "VerifyEmail\n[token]"              <<Command>>   as cmdVerify
+rectangle "EmailVerified"                     <<Event>>     as evtVerified
+
+guest        -->  cmdRegister
+cmdRegister  -->  aggUser
+aggUser      -->  evtRegistered
+evtRegistered -[#6A1B9A]->  polVerify  : triggers
+polVerify    -->  sysEmail   : sends email
+guest        -->  cmdVerify
+cmdVerify    -->  aggUser
+aggUser      -->  evtVerified
+
+' ============================================================
+' LOGIN / SESSION FLOW
+' ============================================================
+rectangle "LoginUser\n[email, password]"  <<Command>>    as cmdLogin
+rectangle "UserLoggedIn"                   <<Event>>      as evtLoggedIn
+rectangle "UserSessionCreated"             <<Event>>      as evtSession
+rectangle "Active Sessions\n[read model]"  <<ReadModel>>  as rmSession
+
+user        -->  cmdLogin
+cmdLogin    -->  aggUser
+aggUser     -->  evtLoggedIn
+evtLoggedIn -->  evtSession
+evtSession  -->  rmSession
+
+' ============================================================
+' LOGOUT FLOW
+' ============================================================
+rectangle "LogoutUser"       <<Command>>  as cmdLogout
+rectangle "UserLoggedOut"    <<Event>>    as evtLoggedOut
+rectangle "SessionRevoked"   <<Event>>    as evtRevoked
+
+user        -->  cmdLogout
+cmdLogout   -->  aggUser
+aggUser     -->  evtLoggedOut
+evtLoggedOut -->  evtRevoked
+evtRevoked   -->  rmSession : updates
+
+' ============================================================
+' PASSWORD RESET FLOW
+' ============================================================
+rectangle "RequestPasswordReset\n[email]"  <<Command>>   as cmdReqReset
+rectangle "PasswordResetRequested"          <<Event>>     as evtResetReq
+rectangle "SendResetEmail"                  <<Policy>>    as polReset
+rectangle "ResetPassword\n[token, newPwd]" <<Command>>   as cmdReset
+rectangle "PasswordReset"                   <<Event>>     as evtReset
+
+user       -->  cmdReqReset
+cmdReqReset -->  aggUser
+aggUser     -->  evtResetReq
+evtResetReq -[#6A1B9A]->  polReset  : triggers
+polReset    -->  sysEmail : sends email
+user        -->  cmdReset
+cmdReset    -->  aggUser
+aggUser     -->  evtReset
+
+' ============================================================
+' PROFILE UPDATE FLOW
+' ============================================================
+rectangle "UpdateProfile\n[display_name, avatar…]"  <<Command>>  as cmdProfile
+rectangle "ProfileUpdated"                            <<Event>>    as evtProfile
+rectangle "User Profile\n[read model]"                <<ReadModel>> as rmProfile
+
+user        -->  cmdProfile
+cmdProfile  -->  aggUser
+aggUser     -->  evtProfile
+evtProfile  -->  rmProfile
+
+@enduml

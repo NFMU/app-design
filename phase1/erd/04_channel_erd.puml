@@ -1,0 +1,110 @@
+@startuml 04_channel_erd
+hide circle
+skinparam linetype ortho
+skinparam entity {
+  FontSize 12
+  FontName Helvetica
+  BorderColor #78909C
+  BackgroundColor #FAFAFA
+}
+skinparam note {
+  BackgroundColor #FFFDE7
+  BorderColor #FBC02D
+  FontSize 11
+}
+
+title Channel Management - ERD
+
+' =============================================
+' STUB ENTITIES (referenced from other domains)
+' =============================================
+
+' stub — ref only
+entity users #ECEFF1 {
+  * id : bigint <<PK>>
+  --
+  email : varchar(255)
+}
+
+' stub — ref only
+entity tenants #ECEFF1 {
+  * id : bigint <<PK>>
+  --
+  name : varchar(255)
+}
+
+' =============================================
+' DOMAIN ENTITIES
+' =============================================
+
+entity channels #FFF3E0 {
+  * id : bigint <<PK>>
+  --
+  uuid : char(36) <<UQ>>
+  tenant_id : bigint <<FK>>
+  created_by : bigint <<FK>>
+  name : varchar(255)
+  slug : varchar(255) <<UQ>>
+  channel_type : varchar(30)
+  description : text
+  topic : varchar(500)
+  avatar_url : varchar(500)
+  status : varchar(30)
+  settings_json : json
+  created_at : datetime
+  updated_at : datetime
+  deleted_at : datetime
+}
+
+note right of channels::channel_type
+  public | private | direct_message
+end note
+
+note right of channels::status
+  active | archived
+end note
+
+note right of channels::settings_json
+  {
+    "allow_threads": true,
+    "read_only": false,
+    "retention_days": null
+  }
+end note
+
+entity channel_members #FFF3E0 {
+  * id : bigint <<PK>>
+  --
+  channel_id : bigint <<FK>>
+  user_id : bigint <<FK>>
+  added_by : bigint <<FK>>
+  status : varchar(30)
+  notification_level : varchar(30)
+  is_pinned : boolean
+  display_order : int
+  joined_at : datetime
+  left_at : datetime
+  created_at : datetime
+  updated_at : datetime
+}
+
+note right of channel_members::status
+  active | left
+end note
+
+note right of channel_members::notification_level
+  all | mentions | none
+end note
+
+' =============================================
+' RELATIONSHIPS
+' =============================================
+
+tenants ||--o{ channels : "has"
+users ||--o{ channels : "creates"
+
+channels ||--o{ channel_members : "has"
+users ||--o{ channel_members : "joins"
+users ||--o{ channel_members : "added by"
+
+@enduml

@@ -1,0 +1,231 @@
+@startuml 00_overview_erd
+hide circle
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+title Phase 1 - Full ERD Overview
+
+' =============================================
+' PACKAGES
+' =============================================
+
+package "Identity & User Management" #E8F5E9 {
+  entity users {
+    * id : bigint <<PK>>
+    --
+    uuid : char(36)
+    email : varchar(255)
+    status : varchar(30)
+    auth_provider : varchar(30)
+  }
+  entity user_profiles {
+    * user_id : bigint <<PK, FK>>
+    --
+    display_name : varchar(255)
+    avatar_url : varchar(500)
+    status : varchar(30)
+  }
+  entity user_settings {
+    * user_id : bigint <<PK, FK>>
+    --
+    notifications_json : json
+    preferences_json : json
+  }
+  entity user_sessions {
+    * id : bigint <<PK>>
+    --
+    user_id : bigint <<FK>>
+    session_token : varchar(255)
+    expires_at : datetime
+  }
+  entity password_resets {
+    * id : bigint <<PK>>
+    --
+    user_id : bigint <<FK>>
+    token_hash : varchar(255)
+    expires_at : datetime
+  }
+}
+
+package "Tenant & Subscription" #E3F2FD {
+  entity plans {
+    * id : bigint <<PK>>
+    --
+    code : varchar(50)
+    name : varchar(100)
+    max_members : int
+    max_channels : int
+  }
+  entity tenants {
+    * id : bigint <<PK>>
+    --
+    uuid : char(36)
+    plan_id : bigint <<FK>>
+    owner_user_id : bigint <<FK>>
+    name : varchar(255)
+    slug : varchar(100)
+    status : varchar(30)
+  }
+}
+
+package "Membership & Invitation" #FFF9C4 {
+  entity tenant_members {
+    * id : bigint <<PK>>
+    --
+    tenant_id : bigint <<FK>>
+    user_id : bigint <<FK>>
+    status : varchar(30)
+    joined_at : datetime
+  }
+  entity invitations {
+    * id : bigint <<PK>>
+    --
+    tenant_id : bigint <<FK>>
+    channel_id : bigint <<FK>>
+    invited_by : bigint <<FK>>
+    email : varchar(255)
+    invite_type : varchar(30)
+    status : varchar(30)
+  }
+}
+
+package "Channel" #FFF3E0 {
+  entity channels {
+    * id : bigint <<PK>>
+    --
+    uuid : char(36)
+    tenant_id : bigint <<FK>>
+    created_by : bigint <<FK>>
+    name : varchar(255)
+    channel_type : varchar(30)
+    status : varchar(30)
+  }
+  entity channel_members {
+    * id : bigint <<PK>>
+    --
+    channel_id : bigint <<FK>>
+    user_id : bigint <<FK>>
+    status : varchar(30)
+    notification_level : varchar(30)
+  }
+}
+
+package "Chat & Messaging" #FCE4EC {
+  entity messages {
+    * id : bigint <<PK>>
+    --
+    uuid : char(36)
+    channel_id : bigint <<FK>>
+    sender_user_id : bigint <<FK>>
+    parent_message_id : bigint <<FK>>
+    message_type : varchar(30)
+    content_text : text
+  }
+  entity message_reads {
+    * id : bigint <<PK>>
+    --
+    channel_id : bigint <<FK>>
+    user_id : bigint <<FK>>
+    last_read_message_id : bigint <<FK>>
+  }
+  entity message_pins {
+    * id : bigint <<PK>>
+    --
+    channel_id : bigint <<FK>>
+    message_id : bigint <<FK>>
+    pinned_by : bigint <<FK>>
+  }
+  entity message_attachments {
+    * id : bigint <<PK>>
+    --
+    message_id : bigint <<FK>>
+    file_name : varchar(255)
+    mime_type : varchar(100)
+  }
+}
+
+package "RBAC" #F3E5F5 {
+  entity roles {
+    * id : bigint <<PK>>
+    --
+    tenant_id : bigint <<FK>>
+    scope_type : varchar(30)
+    code : varchar(50)
+    is_system : boolean
+  }
+  entity permissions {
+    * id : bigint <<PK>>
+    --
+    scope_type : varchar(30)
+    code : varchar(100)
+    name : varchar(255)
+  }
+  entity role_permissions {
+    * id : bigint <<PK>>
+    --
+    role_id : bigint <<FK>>
+    permission_id : bigint <<FK>>
+  }
+  entity tenant_member_roles {
+    * id : bigint <<PK>>
+    --
+    tenant_member_id : bigint <<FK>>
+    role_id : bigint <<FK>>
+  }
+  entity channel_member_roles {
+    * id : bigint <<PK>>
+    --
+    channel_member_id : bigint <<FK>>
+    role_id : bigint <<FK>>
+  }
+}
+
+' =============================================
+' RELATIONSHIPS
+' =============================================
+
+' Identity
+users ||--|| user_profiles : "has"
+users ||--|| user_settings : "has"
+users ||--o{ user_sessions : "opens"
+users ||--o{ password_resets : "requests"
+
+' Tenant
+plans ||--o{ tenants : "applied to"
+users ||--o{ tenants : "creates / owns"
+
+' Membership
+tenants ||--o{ tenant_members : "has"
+users ||--o{ tenant_members : "joins"
+tenants ||--o{ invitations : "sends"
+channels ||--o{ invitations : "targets"
+users ||--o{ invitations : "invited by"
+
+' Channel
+tenants ||--o{ channels : "has"
+users ||--o{ channels : "creates"
+channels ||--o{ channel_members : "has"
+users ||--o{ channel_members : "joins"
+
+' Messaging
+channels ||--o{ messages : "has"
+users ||--o{ messages : "sends"
+messages ||--o{ messages : "reply to"
+messages ||--o{ message_reads : "tracked by"
+messages ||--o{ message_pins : "pinned as"
+messages ||--o{ message_attachments : "has"
+channels ||--o{ message_reads : "tracks"
+channels ||--o{ message_pins : "has"
+users ||--o{ message_reads : "reads"
+users ||--o{ message_pins : "pins"
+
+' RBAC
+tenants ||--o{ roles : "defines"
+roles ||--o{ role_permissions : "has"
+permissions ||--o{ role_permissions : "granted via"
+tenant_members ||--o{ tenant_member_roles : "assigned"
+roles ||--o{ tenant_member_roles : "applied to"
+channel_members ||--o{ channel_member_roles : "assigned"
+roles ||--o{ channel_member_roles : "applied to"
+
+@enduml

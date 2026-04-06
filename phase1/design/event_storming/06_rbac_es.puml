@@ -1,0 +1,128 @@
+@startuml 06_rbac_es
+title RBAC Domain - Event Storming
+left to right direction
+
+skinparam defaultTextAlignment center
+skinparam rectangle {
+  RoundCorner 8
+  BackgroundColor<<Command>>       #1565C0
+  FontColor<<Command>>             white
+  BorderColor<<Command>>           #0D47A1
+  BackgroundColor<<Event>>         #E65100
+  FontColor<<Event>>               white
+  BorderColor<<Event>>             #BF360C
+  BackgroundColor<<Aggregate>>     #F9A825
+  FontColor<<Aggregate>>           #212121
+  BorderColor<<Aggregate>>         #F57F17
+  BackgroundColor<<Policy>>        #6A1B9A
+  FontColor<<Policy>>              white
+  BorderColor<<Policy>>            #4A148C
+  BackgroundColor<<ReadModel>>     #1B5E20
+  FontColor<<ReadModel>>           white
+  BorderColor<<ReadModel>>         #194D19
+  BackgroundColor<<External>>      #880E4F
+  FontColor<<External>>            white
+  BorderColor<<External>>          #560027
+}
+skinparam actor {
+  BackgroundColor #FFFDE7
+  BorderColor     #F9A825
+}
+skinparam ArrowColor #555555
+
+actor "System\n(Seeder)"   as system
+actor "Workspace\nOwner"   as owner
+actor "Admin"              as admin
+
+' ============================================================
+' AGGREGATES
+' ============================================================
+rectangle "Role\nAggregate"       <<Aggregate>> as aggRole
+rectangle "Permission\nAggregate" <<Aggregate>> as aggPerm
+
+' ============================================================
+' SEED SYSTEM ROLES & PERMISSIONS (bootstrap)
+' ============================================================
+rectangle "SeedSystemRoles\n[owner, admin, member]"  <<Command>>    as cmdSeed
+rectangle "SystemRolesSeeded"                         <<Event>>      as evtSeeded
+rectangle "SeedPermissions\n[tenant.*, channel.*]"   <<Command>>    as cmdSeedPerm
+rectangle "PermissionsSeeded"                         <<Event>>      as evtPermSeeded
+rectangle "BindDefaultPermissions"                    <<Policy>>     as polBind
+rectangle "RolePermissionsBound"                      <<Event>>      as evtBound
+rectangle "Role Registry\n[read model]"               <<ReadModel>>  as rmRoles
+
+system       -->  cmdSeed
+cmdSeed      -->  aggRole
+aggRole      -->  evtSeeded
+system       -->  cmdSeedPerm
+cmdSeedPerm  -->  aggPerm
+aggPerm      -->  evtPermSeeded
+evtPermSeeded -[#6A1B9A]->  polBind : triggers
+polBind      -->  evtBound
+evtSeeded    -->  rmRoles
+
+' ============================================================
+' CREATE CUSTOM ROLE FLOW
+' ============================================================
+rectangle "CreateCustomRole\n[name, scope_type]"  <<Command>>    as cmdCreate
+rectangle "CustomRoleCreated"                      <<Event>>      as evtCreated
+rectangle "GrantPermission\n[role_id, perm_id]"   <<Command>>    as cmdGrant
+rectangle "PermissionGranted"                      <<Event>>      as evtGranted
+
+owner      -->  cmdCreate
+cmdCreate  -->  aggRole
+aggRole    -->  evtCreated
+evtCreated -->  rmRoles
+
+owner      -->  cmdGrant
+cmdGrant   -->  aggRole
+aggRole    -->  evtGranted
+
+' ============================================================
+' ASSIGN / REVOKE ROLE FLOW (Tenant Level)
+' ============================================================
+rectangle "AssignTenantRole\n[member_id, role_id]"  <<Command>>    as cmdAssignT
+rectangle "TenantRoleAssigned"                       <<Event>>      as evtAssignedT
+rectangle "RevokeTenantRole\n[member_id, role_id]"  <<Command>>    as cmdRevokeT
+rectangle "TenantRoleRevoked"                        <<Event>>      as evtRevokedT
+rectangle "Effective Permissions\n[read model]"      <<ReadModel>>  as rmPerms
+
+admin      -->  cmdAssignT
+cmdAssignT -->  aggRole
+aggRole    -->  evtAssignedT
+evtAssignedT -->  rmPerms
+
+admin      -->  cmdRevokeT
+cmdRevokeT -->  aggRole
+aggRole    -->  evtRevokedT
+evtRevokedT -->  rmPerms : updates
+
+' ============================================================
+' ASSIGN / REVOKE ROLE FLOW (Channel Level)
+' ============================================================
+rectangle "AssignChannelRole\n[channel_member_id, role_id]"  <<Command>>  as cmdAssignC
+rectangle "ChannelRoleAssigned"                               <<Event>>    as evtAssignedC
+rectangle "RevokeChannelRole\n[channel_member_id, role_id]"  <<Command>>  as cmdRevokeC
+rectangle "ChannelRoleRevoked"                                <<Event>>    as evtRevokedC
+
+admin      -->  cmdAssignC
+cmdAssignC -->  aggRole
+aggRole    -->  evtAssignedC
+evtAssignedC -->  rmPerms
+
+admin      -->  cmdRevokeC
+cmdRevokeC -->  aggRole
+aggRole    -->  evtRevokedC
+evtRevokedC -->  rmPerms : updates
+
+' ============================================================
+' CHECK PERMISSION (query)
+' ============================================================
+rectangle "CheckPermission\n[user_id, resource, action]"  <<Command>>    as cmdCheck
+rectangle "PermissionChecked\n(allowed | denied)"          <<Event>>      as evtChecked
+
+admin      -->  cmdCheck
+cmdCheck   -->  rmPerms  : queries
+rmPerms    -->  evtChecked
+
+@enduml

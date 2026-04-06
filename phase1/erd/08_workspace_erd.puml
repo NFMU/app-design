@@ -1,0 +1,168 @@
+@startuml
+hide circle
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+title Workspace Domain - Entity Relationship Diagram
+
+' =============================================
+' ENTITIES
+' =============================================
+
+entity users {
+  * id : bigint <<PK>>
+  --
+  uuid : char(36) <<UQ>>
+  email : varchar(255) <<UQ>>
+  password_hash : varchar(255)
+  status : varchar(30)
+  auth_provider : varchar(30)
+  email_verified_at : datetime
+  last_login_at : datetime
+  created_at : datetime
+  updated_at : datetime
+  deleted_at : datetime
+}
+
+note right of users::status
+  active | suspended | deleted
+end note
+
+entity workspaces {
+  * id : bigint <<PK>>
+  --
+  uuid : char(36) <<UQ>>
+  plan_id : bigint <<FK>>
+  owner_user_id : bigint <<FK>>
+  created_by : bigint <<FK>>
+  name : varchar(255)
+  slug : varchar(100) <<UQ>>
+  domain : varchar(255)
+  status : varchar(30)
+  timezone : varchar(50)
+  locale : varchar(10)
+  settings_json : json
+  activated_at : datetime
+  suspended_at : datetime
+  created_at : datetime
+  updated_at : datetime
+  deleted_at : datetime
+}
+
+note right of workspaces::status
+  active | suspended | deleted
+end note
+
+entity workspace_groups {
+  * id : bigint <<PK>>
+  --
+  workspace_id : bigint <<FK>>
+  created_by : bigint <<FK>>
+  name : varchar(255)
+  description : text
+  avatar_url : varchar(500)
+  status : varchar(30)
+  settings_json : json
+  created_at : datetime
+  updated_at : datetime
+  deleted_at : datetime
+}
+
+note right of workspace_groups::status
+  active | archived
+end note
+
+entity memberships {
+  * id : bigint <<PK>>
+  --
+  workspace_id : bigint <<FK>>
+  user_id : bigint <<FK>>
+  invited_by : bigint <<FK>>
+  status : varchar(30)
+  joined_at : datetime
+  left_at : datetime
+  removed_at : datetime
+  created_at : datetime
+  updated_at : datetime
+}
+
+note right of memberships::status
+  active | suspended | left
+end note
+
+entity group_members {
+  * id : bigint <<PK>>
+  --
+  workspace_group_id : bigint <<FK>>
+  membership_id : bigint <<FK>>
+  added_by : bigint <<FK>>
+  role : varchar(30)
+  joined_at : datetime
+  created_at : datetime
+  updated_at : datetime
+}
+
+note right of group_members::role
+  owner | admin | member
+end note
+
+entity workspace_invites {
+  * id : bigint <<PK>>
+  --
+  workspace_id : bigint <<FK>>
+  invited_by : bigint <<FK>>
+  accepted_by_user_id : bigint <<FK>>
+  email : varchar(255)
+  invite_type : varchar(30)
+  token : varchar(255) <<UQ>>
+  role_code : varchar(50)
+  status : varchar(30)
+  expires_at : datetime
+  accepted_at : datetime
+  created_at : datetime
+  updated_at : datetime
+}
+
+note right of workspace_invites::invite_type
+  workspace | group
+end note
+
+note right of workspace_invites::status
+  pending | accepted | expired | revoked
+end note
+
+' =============================================
+' RELATIONSHIPS
+' =============================================
+
+' users -- Create --> workspaces (zero-or-more workspaces created by one user)
+users ||--o{ workspaces : "creates"
+
+' users -- Own --> workspaces (each workspace has one owner)
+users ||--o{ workspaces : "owns"
+
+' users -- Create --> workspace_groups
+users ||--o{ workspace_groups : "creates"
+
+' workspaces -- Contain --> workspace_groups
+workspaces ||--o{ workspace_groups : "contains"
+
+' workspaces -- Has --> memberships
+workspaces ||--o{ memberships : "has"
+
+' users -- Belong to --> memberships (a user has workspace memberships)
+users ||--o{ memberships : "belongs to"
+
+' workspace_groups -- Has --> group_members
+workspace_groups ||--o{ group_members : "has"
+
+' memberships -- Join --> group_members (a membership can join multiple groups)
+memberships ||--o{ group_members : "joins"
+
+' users -- Invite --> workspace_invites
+users ||--o{ workspace_invites : "invites"
+
+' workspaces -- Invite to --> workspace_invites
+workspaces ||--o{ workspace_invites : "invite to"
+
+@enduml
