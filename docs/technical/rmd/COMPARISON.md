@@ -1,5 +1,11 @@
 # Schema Comparison: Before vs After Refactoring
 
+## Source Alignment Note
+
+As of 2026-05-05, the detailed identity RMD in `01_indentity_and_personal.drawio` is aligned with the implemented TypeORM entities in `d:/Workspace/Github/chat-slack/identity`.
+
+The identity examples in this historical comparison may use earlier spec names such as `phone`, `notifications_json`, or `preferences_json`. The implemented source currently uses `phone_number`, `language_id`, `timezone_id`, `theme`, `two_factor_enabled`, and `marketing_emails_enabled`.
+
 ## Table Count
 
 | Aspect | Before | After | Change |

@@ -1,5 +1,11 @@
 # Database Schema Refactoring - Simplified Design
 
+## Source Alignment Note
+
+As of 2026-05-05, the detailed identity RMD in `01_indentity_and_personal.drawio` is aligned with the implemented TypeORM entities in `d:/Workspace/Github/chat-slack/identity`.
+
+This refactoring summary remains useful for the tenant/workspace simplification, but identity field examples from the older spec should be read as historical. The implemented source currently uses `phone_number`, reference-backed `language_id` and `timezone_id`, `theme`, `two_factor_enabled`, and `marketing_emails_enabled`.
+
 ## 🎯 Mục tiêu
 Đơn giản hóa database schema bằng cách loại bỏ các concept duplicate, field redundant và cải thiện tính nhất quán.
 
