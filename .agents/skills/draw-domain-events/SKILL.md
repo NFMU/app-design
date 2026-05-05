@@ -6,6 +6,7 @@ description: Infer a tactical domain-event catalog in editable draw.io XML from 
 # Draw Domain Events
 
 Create domain-event catalog diagrams as editable `.drawio` XML.
+Read [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) before placing connectors.
 
 ## Output Contract
 
@@ -37,3 +38,8 @@ For each event, capture:
 - Use one card per event.
 - Use arrows only for meaningful downstream reactions, not every possible read model update.
 - Keep names exactly aligned with the aggregate and event-storming docs.
+- Route every connector with the shared direct-routing algorithm.
+- Use `edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0` for connector styles.
+- Prefer straight connectors, then one clean 90-degree elbow, then a two-elbow dogleg only when an obstacle requires it.
+- Treat event cards, context groups, notes, and labels as inflated obstacles; connectors must not pass through them.
+- Split into detail files before accepting crowded routes with repeated bends or overlapping segments.

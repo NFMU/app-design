@@ -6,6 +6,7 @@ description: Infer a DDD context map in editable draw.io XML from `docs/analysis
 # Draw Context Map
 
 Create a strategic DDD context map as editable `.drawio` XML.
+Read [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) before placing connectors.
 
 ## Output Contract
 
@@ -44,5 +45,9 @@ If the docs disagree, prefer the higher-priority business wording from `analysis
 - Use one large rounded rectangle per bounded context.
 - Include 2-4 short bullets inside each context describing its responsibility.
 - Use arrow labels for the relationship pattern and direction.
-- Avoid crossing lines when a simple repositioning solves it.
+- Route every connector with the shared direct-routing algorithm.
+- Use `edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0` for connector styles.
+- Prefer straight connectors, then one clean 90-degree elbow, then a two-elbow dogleg only when an obstacle requires it.
+- Avoid crossing lines by repositioning contexts, choosing opposite-side anchors, or increasing gutters before adding bends.
+- Treat context boxes, legend notes, labels, and group boundaries as inflated obstacles; connectors must not pass through them.
 - Keep the canvas overview-first and readable in one screen.

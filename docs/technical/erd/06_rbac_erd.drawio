@@ -62,49 +62,48 @@
         <mxCell id="assigned_by_channel" value="Assigned By" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="820" y="940" width="78" height="42" as="geometry"/>
         </mxCell>
-        <mxCell id="p1_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tenants" target="defines">
+        <mxCell id="p1_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tenants" target="defines">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p1_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="defines" target="roles">
+        <mxCell id="p1_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="defines" target="roles">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p2_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="roles" target="has_role_permissions">
+        <mxCell id="p2_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="roles" target="has_role_permissions">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p2_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="has_role_permissions" target="role_permissions">
+        <mxCell id="p2_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="has_role_permissions" target="role_permissions">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p3_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="permissions" target="granted_via">
+        <mxCell id="p3_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="permissions" target="granted_via">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p3_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.7;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="granted_via" target="role_permissions">
+        <mxCell id="p3_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.7;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="granted_via" target="role_permissions">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1169" y="472"/>
               <mxPoint x="1240" y="472"/>
               <mxPoint x="1240" y="302"/>
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="p4_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tenant_members" target="assigned_tenant">
+        <mxCell id="p4_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="tenant_members" target="assigned_tenant">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p4_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="assigned_tenant" target="tenant_member_roles">
+        <mxCell id="p4_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="assigned_tenant" target="tenant_member_roles">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p5_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.35;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="roles" target="applied_to_tenant">
+        <mxCell id="p5_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.35;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="roles" target="applied_to_tenant">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p5_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="applied_to_tenant" target="tenant_member_roles">
+        <mxCell id="p5_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="applied_to_tenant" target="tenant_member_roles">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p6_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="channel_members" target="assigned_channel">
+        <mxCell id="p6_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="channel_members" target="assigned_channel">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p6_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="assigned_channel" target="channel_member_roles">
+        <mxCell id="p6_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="assigned_channel" target="channel_member_roles">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p7_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.65;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="roles" target="applied_to_channel">
+        <mxCell id="p7_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.65;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="roles" target="applied_to_channel">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="831" y="302"/>
@@ -112,7 +111,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="p7_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="applied_to_channel" target="channel_member_roles">
+        <mxCell id="p7_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="applied_to_channel" target="channel_member_roles">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="899" y="732"/>
@@ -120,16 +119,16 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="p8_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.3;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="assigned_by_tenant">
+        <mxCell id="p8_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.3;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="assigned_by_tenant">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p8_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="assigned_by_tenant" target="tenant_member_roles">
+        <mxCell id="p8_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="assigned_by_tenant" target="tenant_member_roles">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p9_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.7;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="assigned_by_channel">
+        <mxCell id="p9_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.7;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="assigned_by_channel">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="p9_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="assigned_by_channel" target="channel_member_roles">
+        <mxCell id="p9_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="assigned_by_channel" target="channel_member_roles">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
       </root>

@@ -6,6 +6,7 @@ description: Infer tactical value-object documentation in editable draw.io XML f
 # Draw Value Objects
 
 Create value-object catalog diagrams as editable `.drawio` XML.
+Read [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) before placing connectors.
 
 ## Output Contract
 
@@ -31,3 +32,8 @@ Create value-object catalog diagrams as editable `.drawio` XML.
 - Group value objects by bounded context.
 - Each card should show the value object name, its main attributes, and where it is applied.
 - Use dashed usage connectors from aggregate roots or entities to value objects.
+- Route every connector with the shared direct-routing algorithm.
+- Use `edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0` for connector styles.
+- Prefer straight connectors, then one clean 90-degree elbow, then a two-elbow dogleg only when an obstacle requires it.
+- Treat value-object cards, aggregate/entity cards, group boxes, notes, and labels as inflated obstacles.
+- Move cards apart or split the file before accepting overlapping segments or connectors through shapes.

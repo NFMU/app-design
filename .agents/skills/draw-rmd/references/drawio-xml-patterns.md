@@ -30,7 +30,7 @@ Use one vertex with an HTML table label:
 ## Relationship Edge Style
 
 ```xml
-<mxCell id="edge_users_profiles" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERone;endFill=0;strokeColor=#AAB7B8;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="users" target="user_profiles">
+<mxCell id="edge_users_profiles" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERone;endFill=0;strokeColor=#AAB7B8;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="users" target="user_profiles">
   <mxGeometry relative="1" as="geometry" />
 </mxCell>
 ```
@@ -50,3 +50,8 @@ Marker names:
 - Separate parallel corridors by at least `30 px`
 - Move tables apart before adding dense extra bends
 - Never let an edge segment overlap an unrelated table bounding box
+- Treat every table, note, label, and group boundary as an inflated obstacle
+- Try route candidates in order: straight segment, one-elbow route, two-elbow dogleg
+- Omit waypoints for straight segments; use one waypoint for one elbow and two waypoints for a dogleg
+- If a line would cross another line or obstacle, reposition the table before adding another bend
+- Do not use curved, diagonal, or rounded connector styles; include `curved=0`

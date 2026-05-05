@@ -138,9 +138,17 @@ Recommended output strategy:
 - one mandatory overview file that shows the shared backbone and major cross-context foreign-key paths
 - keep external tables as light dependencies instead of duplicating the whole schema in every context file
 
+Overview-specific rule:
+
+- The overview should not repeat every context-detail foreign key.
+- Keep the overview readable as a topology map by showing context-local clusters and only the most important cross-context backbone.
+- If a foreign-key path would require a long line through other contexts, either move the clusters, use a lightweight external-reference stub near the destination cluster, or leave that relationship to the context-specific RMD.
+- Avoid hub-and-spoke canvases where `users`, `tenants`, or another common table sends long lines to many distant contexts.
+
 ## Layout Cleanup Rules
 
 After placing the tables, do a dedicated routing cleanup pass.
+Use the shared direct routing algorithm in `../../_shared/drawio-routing-algorithm.md` for anchor choice, route candidates, and validation checks.
 
 Use these rules:
 
@@ -148,9 +156,12 @@ Use these rules:
 - prefer straight horizontal lines
 - if horizontal is not possible, prefer straight vertical lines
 - if straight routing is not possible, use one clean orthogonal elbow
+- use a two-elbow dogleg only when an obstacle makes it necessary
+- disable curved routing in edge styles with `curved=0`
 - enforce unique anchor lanes per table side
 - separate parallel routes into distinct lanes of at least `30 px`
 - never let a connector pass through another table box
+- keep straight edges free of waypoint arrays; use one waypoint for one elbow and two waypoints for a dogleg
 - if a route feels squeezed, move tables apart first instead of forcing dense bends
 
 Run these three checks before finishing:

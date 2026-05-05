@@ -6,6 +6,7 @@ description: Infer tactical repository documentation in editable draw.io XML fro
 # Draw Repositories
 
 Create repository diagrams as editable `.drawio` XML.
+Read [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) before placing connectors.
 
 ## Output Contract
 
@@ -34,3 +35,8 @@ Create repository diagrams as editable `.drawio` XML.
 - Use one interface-style card per repository.
 - Include the aggregate root it serves and the key query methods.
 - Add notes for important persistence constraints such as uniqueness, optimistic locking, or ID-based cross-aggregate references when justified.
+- Route every connector with the shared direct-routing algorithm.
+- Use `edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0` for connector styles.
+- Prefer straight connectors, then one clean 90-degree elbow, then a two-elbow dogleg only when an obstacle requires it.
+- Treat repository cards, aggregate cards, notes, and labels as inflated obstacles; connectors must not pass through them.
+- Move shapes apart or split the file before accepting dense bends, colinear overlaps, or shape intersections.

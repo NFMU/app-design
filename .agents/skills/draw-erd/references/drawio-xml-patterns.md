@@ -46,10 +46,10 @@ Model each relationship as two segments:
 Example:
 
 ```xml
-<mxCell id="edge_users_has_profile" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERone;endFill=0;strokeColor=#AAB7B8;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="users" target="rel_has_profile">
+<mxCell id="edge_users_has_profile" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERone;endFill=0;strokeColor=#AAB7B8;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="users" target="rel_has_profile">
   <mxGeometry relative="1" as="geometry" />
 </mxCell>
-<mxCell id="edge_has_profile_user_profiles" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERone;endFill=0;strokeColor=#AAB7B8;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="rel_has_profile" target="user_profiles">
+<mxCell id="edge_has_profile_user_profiles" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=ERone;startFill=0;endArrow=ERone;endFill=0;strokeColor=#AAB7B8;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="rel_has_profile" target="user_profiles">
   <mxGeometry relative="1" as="geometry" />
 </mxCell>
 ```
@@ -76,4 +76,8 @@ Marker names:
 - When two edges leave the same side, do not reuse the same `(exitX, exitY)` pair
 - On diamonds, use only the four cardinal vertices
 - Separate parallel routes into distinct lanes with at least `30 px`
-- If a line would cross another line, reposition the entity or diamond before adding a second elbow
+- Treat every entity, diamond, note, and label as an inflated obstacle
+- Try route candidates in order: straight segment, one-elbow route, two-elbow dogleg
+- Omit waypoints for straight segments; use one waypoint for one elbow and two waypoints for a dogleg
+- If a line would cross another line or obstacle, reposition the entity or diamond before adding another bend
+- Do not use curved, diagonal, or rounded connector styles; include `curved=0`

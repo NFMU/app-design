@@ -133,9 +133,17 @@ Recommended output strategy:
 - one mandatory overview file that shows the shared backbone and major cross-context relations
 - keep cross-context references as light stubs instead of copying the whole model into every file
 
+Overview-specific rule:
+
+- The overview should not repeat every context-detail relationship.
+- Keep the overview readable as a topology map by showing context-local clusters and only the most important cross-context backbone.
+- If a relationship would require a long line through other contexts, either move the clusters, use a lightweight external-reference stub near the destination cluster, or leave that relationship to the context-specific ERD.
+- Avoid hub-and-spoke canvases where `users`, `tenants`, or another central entity sends long lines to many distant contexts.
+
 ## Layout Cleanup Rules
 
 After the first pass, do a dedicated routing cleanup pass.
+Use the shared direct routing algorithm in `../../_shared/drawio-routing-algorithm.md` for anchor choice, route candidates, and validation checks.
 
 Use these rules:
 
@@ -143,12 +151,16 @@ Use these rules:
 - prefer straight horizontal lines
 - if horizontal is not possible, prefer straight vertical lines
 - if straight routing is not possible, use one clean 90-degree elbow
+- use a two-elbow dogleg only when an obstacle makes it necessary
 - avoid diagonal or zig-zag shapes
+- disable curved routing in edge styles with `curved=0`
 - leave at least `120-180 px` between an entity edge and a diamond edge
 - on rhombus shapes, use only vertex anchor points: top, right, bottom, left
 - give each busy entity side multiple anchor lanes such as `0.2`, `0.5`, and `0.8`
 - when two relations leave the same entity side, keep their lanes distinct
 - if two relations would overlap, move the second relation into an empty corridor instead of sharing a trunk
+- treat entities, diamonds, notes, and labels as inflated obstacles; no connector should pass through them
+- keep straight edges free of waypoint arrays; use one waypoint for one elbow and two waypoints for a dogleg
 - keep diamond labels readable by reserving whitespace around each diamond
 - if one lane is busy and an adjacent lane is empty, move the relation into the empty lane
 - if the domain becomes too dense, split the ERD into multiple bounded-context diagrams
@@ -164,6 +176,8 @@ Before finalizing the `.drawio` file or file set, confirm:
 - the chosen markers match the source docs
 - every edge touches the diamond at top, right, bottom, or left vertex only
 - connectors are routed cleanly without overlapping other relations where a simple lane or waypoint would avoid it
+- connector styles explicitly disable curved routing
+- no connector intersects an unrelated inflated obstacle or overlaps another segment in the same corridor
 - grouping reflects the bounded contexts in the analysis docs
 - an overview file exists whenever the output is split by context
 - glossary alignment from specs was respected

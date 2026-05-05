@@ -8,6 +8,7 @@ description: Infer a conceptual ERD in editable draw.io XML from `docs/analysis/
 Create a conceptual ERD as an editable `.drawio` file directly from project documents.
 Read [references/erd-derivation-guide.md](references/erd-derivation-guide.md) first.
 Read [references/drawio-xml-patterns.md](references/drawio-xml-patterns.md) before writing XML.
+Read [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) before placing connectors.
 
 ## Output Contract
 
@@ -107,6 +108,16 @@ Use [references/drawio-xml-patterns.md](references/drawio-xml-patterns.md) as th
 - entity and relationship styles used by this repository
 - marker-based connector styles for one, zero-or-one, many, one-or-many
 - waypoint and lane patterns that prevent overlapping lines
+- direct orthogonal edge styles with curved routing disabled
+
+Use [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) as the routing algorithm for every connector:
+
+- place entities and diamonds into rows or columns before adding edges
+- choose the facing side and anchor lane first, then try straight, one-elbow, and two-elbow candidates in that order
+- treat every entity, diamond, note, and label as an inflated obstacle that connectors must avoid
+- write edges with `edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0`
+- omit waypoints for straight lines, use one waypoint for one elbow, and use two waypoints only for a necessary dogleg
+- move shapes or split the file before accepting a connector with more than two bends
 
 When writing the diagram:
 
@@ -121,6 +132,14 @@ When writing the diagram:
 - when you split by context, also write one overview ERD that shows the core entities and the most important cross-context relations
 - keep filenames aligned with the context, for example `01_identity_erd.drawio` or `05_chat_erd.drawio`
 
+For `00_overview_erd.drawio`, use the shared routing algorithm's overview topology mode:
+
+- show only the cross-context backbone, not every relation from the detailed ERDs
+- place each bounded context as a local cluster with its own nearby entities and diamonds
+- avoid long connectors from a hub entity across the whole canvas
+- use lightweight external-reference stubs or omit detail-level cross-context relations when the numbered context diagram owns the detail
+- no relationship line should pass behind another context cluster
+
 ### 5. Beautify the routing after the first draft
 
 After the diagram is logically correct, do one cleanup pass for readability. Follow the full layout cleanup rules in [references/erd-derivation-guide.md](references/erd-derivation-guide.md). Key principles:
@@ -130,6 +149,7 @@ After the diagram is logically correct, do one cleanup pass for readability. Fol
 - avoid diagonal, curved, and zig-zag connectors
 - assign different anchor lanes when multiple relations leave the same entity side
 - keep connectors in empty corridors and never route them through another entity box
+- run obstacle-intersection and colinear-overlap checks from the shared routing algorithm
 - if a diagram becomes crowded, split it into multiple files instead of compressing the layout
 
 ### 6. Review before finishing
@@ -159,3 +179,4 @@ Follow the full quality checklist in [references/erd-derivation-guide.md](refere
 
 - `references/erd-derivation-guide.md`: heuristics for deriving entities, relations, optionality, and context splits
 - `references/drawio-xml-patterns.md`: draw.io XML skeletons, diamond patterns, and routing rules used by this repository
+- `../_shared/drawio-routing-algorithm.md`: direct orthogonal routing algorithm and validation checks shared by draw.io skills

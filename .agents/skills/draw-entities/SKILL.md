@@ -6,6 +6,7 @@ description: Infer a tactical entity catalog in editable draw.io XML from analys
 # Draw Entities
 
 Create entity catalog diagrams as editable `.drawio` XML.
+Read [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) before placing connectors.
 
 ## Output Contract
 
@@ -28,3 +29,8 @@ Create entity catalog diagrams as editable `.drawio` XML.
 - Each card should show the entity name, identity hint, and 2-5 core responsibilities or fields.
 - Aggregate roots should be visually emphasized over child entities.
 - Do not duplicate value objects here; only reference them when needed.
+- Route every connector with the shared direct-routing algorithm.
+- Use `edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0` for connector styles.
+- Prefer straight connectors, then one clean 90-degree elbow, then a two-elbow dogleg only when an obstacle requires it.
+- Treat cards, aggregate group boxes, notes, and labels as inflated obstacles; connectors must not pass through them.
+- Move cards apart or split the file before accepting colinear overlaps or shape intersections.

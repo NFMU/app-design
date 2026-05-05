@@ -8,6 +8,7 @@ description: Infer a physical relational model in editable draw.io XML from `doc
 Create a physical relational model diagram as an editable `.drawio` file directly from project documents.
 Read [references/rmd-derivation-guide.md](references/rmd-derivation-guide.md) first.
 Read [references/drawio-xml-patterns.md](references/drawio-xml-patterns.md) before writing XML.
+Read [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) before placing connectors.
 
 ## Output Contract
 
@@ -119,6 +120,16 @@ Use [references/drawio-xml-patterns.md](references/drawio-xml-patterns.md) as th
 - HTML table box patterns used by this repository
 - draw.io ER marker names and orthogonal edge styles
 - routing rules that prevent overlapping lines
+- direct orthogonal edge styles with curved routing disabled
+
+Use [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) as the routing algorithm for every connector:
+
+- place tables into rows or columns before adding edges
+- choose the facing side and anchor lane first, then try straight, one-elbow, and two-elbow candidates in that order
+- treat every table, note, label, and group boundary as an inflated obstacle that connectors must avoid
+- write edges with `edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0`
+- omit waypoints for straight lines, use one waypoint for one elbow, and use two waypoints only for a necessary dogleg
+- move tables or split the file before accepting a connector with more than two bends
 
 When writing the diagram:
 
@@ -131,6 +142,14 @@ When writing the diagram:
 - when you split by context, also write one overview RMD that shows the key tables and major inter-context relationships
 - keep filenames aligned with the context, for example `04_channel.drawio` or `06_rbac.drawio`
 
+For `00_overview.drawio`, use the shared routing algorithm's overview topology mode:
+
+- show only the schema backbone and major foreign-key paths, not every detailed FK from the context files
+- place each bounded context as a local cluster with nearby tables
+- avoid long connectors from common tables such as `users` or `tenants` across the whole canvas
+- use lightweight external-reference stubs or omit detail-level cross-context FKs when the numbered RMD owns the detail
+- no relationship line should pass behind another context cluster
+
 ### 6. Beautify routing and verify table avoidance
 
 After the diagram is logically correct, do one cleanup pass for readability. Follow the full layout cleanup rules in [references/rmd-derivation-guide.md](references/rmd-derivation-guide.md). Key principles:
@@ -140,6 +159,7 @@ After the diagram is logically correct, do one cleanup pass for readability. Fol
 - avoid diagonal, curved, and zig-zag connectors
 - assign different anchor lanes when multiple edges leave the same table side
 - keep connectors in empty corridors and never route them through another table box
+- run obstacle-intersection and colinear-overlap checks from the shared routing algorithm
 
 ### 7. Review before finishing
 
@@ -168,3 +188,4 @@ Follow the full quality checklist in [references/rmd-derivation-guide.md](refere
 
 - `references/rmd-derivation-guide.md`: heuristics for deriving physical tables, columns, keys, nullability, and context splits
 - `references/drawio-xml-patterns.md`: draw.io XML patterns, table templates, and routing rules used by this repository
+- `../_shared/drawio-routing-algorithm.md`: direct orthogonal routing algorithm and validation checks shared by draw.io skills

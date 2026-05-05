@@ -6,6 +6,7 @@ description: Infer event-storming diagrams in editable draw.io XML from `docs/an
 # Draw Event Storming
 
 Create strategic event-storming diagrams as editable `.drawio` XML.
+Read [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) before placing connectors.
 
 ## Output Contract
 
@@ -40,5 +41,9 @@ Create strategic event-storming diagrams as editable `.drawio` XML.
 - Policy: purple.
 - Read model: green.
 - External system: magenta.
-- Prefer straight or single-elbow connectors.
+- Route every connector with the shared direct-routing algorithm.
+- Use `edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0` for connector styles.
+- Prefer straight connectors, then one clean 90-degree elbow, then a two-elbow dogleg only when an obstacle requires it.
+- Treat actors, commands, aggregates, events, policies, read models, external systems, notes, and labels as inflated obstacles.
+- Do not route connectors through unrelated shapes or reuse the same busy corridor when another lane is open.
 - Do not overload one canvas with multiple unrelated contexts.

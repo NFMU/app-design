@@ -6,6 +6,7 @@ description: Infer DDD aggregate design diagrams in editable draw.io XML from `d
 # Draw Aggregate
 
 Create tactical aggregate diagrams as editable `.drawio` XML.
+Read [../_shared/drawio-routing-algorithm.md](../_shared/drawio-routing-algorithm.md) before placing connectors.
 
 ## Output Contract
 
@@ -39,3 +40,8 @@ Create tactical aggregate diagrams as editable `.drawio` XML.
 - Domain event card: orange header.
 - Use package or section headers for each aggregate context.
 - Use dashed connectors for cross-aggregate references and label them as ID-based references when needed.
+- Route every connector with the shared direct-routing algorithm.
+- Use `edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0` for connector styles.
+- Prefer straight connectors, then one clean 90-degree elbow, then a two-elbow dogleg only when an obstacle requires it.
+- Treat cards, package boundaries, event notes, and labels as inflated obstacles; connectors must not pass through them.
+- Move shapes apart or split the file before accepting dense bends, colinear overlaps, or shape intersections.

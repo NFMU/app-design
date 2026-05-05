@@ -34,22 +34,22 @@
                 <mxCell id="legend" value="Legend:&lt;br&gt;solid = operational dependency&lt;br&gt;dashed = policy / contract dependency" style="shape=note;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;" parent="1" vertex="1">
                     <mxGeometry x="120" y="860" width="320" height="88" as="geometry"/>
                 </mxCell>
-                <mxCell id="e1" value="owner identity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="identity" target="foundation" edge="1">
+                <mxCell id="e1" value="owner identity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="identity" target="foundation" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e2" value="upstream identity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="identity" target="membership" edge="1">
+                <mxCell id="e2" value="upstream identity" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="identity" target="membership" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e3" value="customer / supplier" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="foundation" target="membership" edge="1">
+                <mxCell id="e3" value="customer / supplier" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="foundation" target="membership" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e4" value="customer / supplier" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="foundation" target="channel" edge="1">
+                <mxCell id="e4" value="customer / supplier" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="foundation" target="channel" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e5" value="conformist member scope" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="membership" target="channel" edge="1">
+                <mxCell id="e5" value="conformist member scope" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="membership" target="channel" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e6" value="customer / supplier" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="channel" target="messaging" edge="1">
+                <mxCell id="e6" value="customer / supplier" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="channel" target="messaging" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="1550" y="545"/>
@@ -57,23 +57,23 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="e7" value="tenant scope" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="foundation" target="rbac" edge="1">
+                <mxCell id="e7" value="tenant scope" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;startArrow=none;endArrow=block;endFill=1;" parent="1" source="foundation" target="rbac" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e8" value="member role target" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;dashed=1;startArrow=none;endArrow=block;endFill=1;" parent="1" edge="1">
+                <mxCell id="e8" value="member role target" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;dashed=1;startArrow=none;endArrow=block;endFill=1;" parent="1" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="620" y="720" as="sourcePoint"/>
                         <mxPoint x="870" y="960" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="e9" value="policy contract" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;dashed=1;startArrow=none;endArrow=block;endFill=1;" parent="1" source="rbac" target="channel" edge="1">
+                <mxCell id="e9" value="policy contract" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;dashed=1;startArrow=none;endArrow=block;endFill=1;" parent="1" source="rbac" target="channel" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="1490" y="1045"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="e10" value="permission contract" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;dashed=1;startArrow=none;endArrow=block;endFill=1;" parent="1" source="rbac" target="messaging" edge="1">
+                <mxCell id="e10" value="permission contract" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#90A4AE;fontSize=11;labelBackgroundColor=#FFFFFF;dashed=1;startArrow=none;endArrow=block;endFill=1;" parent="1" source="rbac" target="messaging" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
             </root>
