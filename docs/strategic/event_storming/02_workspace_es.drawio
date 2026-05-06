@@ -3,157 +3,157 @@
   <diagram id="02_workspace_es" name="Page-1">
     <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1100" math="0" shadow="0">
       <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
         <mxCell id="title" value="Workspace Domain - Event Storming" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="30" y="20" width="700" height="30" as="geometry"/>
+          <mxGeometry x="30" y="20" width="700" height="30" as="geometry" />
         </mxCell>
         <mxCell id="subtitle" value="Strategic event-storming flow rendered as editable draw.io" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#607D8B;" vertex="1" parent="1">
-          <mxGeometry x="30" y="48" width="600" height="24" as="geometry"/>
+          <mxGeometry x="30" y="48" width="600" height="24" as="geometry" />
         </mxCell>
-        <mxCell id="note" value="Strategic language keeps &lt;b&gt;workspace&lt;/b&gt; for the business boundary.&lt;br&gt;Phase 1 tactical and technical persistence map this boundary onto tenants." style="shape=note;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
-          <mxGeometry x="1380" y="26" width="360" height="86" as="geometry"/>
+        <mxCell id="note" value="Strategic language keeps &lt;b&gt;workspace&lt;/b&gt; for the business boundary.&lt;br/&gt;Phase 1 tactical and technical persistence map this boundary onto tenants." style="shape=note;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="26" width="360" height="86" as="geometry" />
         </mxCell>
         <mxCell id="l0_n0" value="User&lt;br&gt;(Owner)" style="shape=umlActor;whiteSpace=wrap;html=1;strokeColor=#F9A825;fillColor=#FFFDE7;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="50" y="130" width="90" height="70" as="geometry"/>
+          <mxGeometry x="50" y="130" width="90" height="70" as="geometry" />
         </mxCell>
         <mxCell id="l0_n1" value="CreateWorkspace&lt;br&gt;[name, slug, plan_id]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1565C0;strokeColor=#0D47A1;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="245" y="130" width="170" height="58" as="geometry"/>
+          <mxGeometry x="245" y="130" width="170" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l0_n2" value="Workspace Aggregate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9A825;strokeColor=#F57F17;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="440" y="130" width="150" height="64" as="geometry"/>
+          <mxGeometry x="440" y="130" width="150" height="64" as="geometry" />
         </mxCell>
         <mxCell id="l0_n3" value="WorkspaceCreated" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=#BF360C;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="635" y="130" width="160" height="58" as="geometry"/>
+          <mxGeometry x="635" y="130" width="160" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l0_n4" value="AssignOwnerRole" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;strokeColor=#4A148C;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="830" y="130" width="170" height="58" as="geometry"/>
+          <mxGeometry x="830" y="130" width="170" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l0_n5" value="RoleAssigned&lt;br&gt;(owner)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=#BF360C;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="1025" y="130" width="160" height="58" as="geometry"/>
+          <mxGeometry x="1025" y="130" width="160" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l0_n6" value="Workspace List&lt;br&gt;[read model]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#194D19;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="1220" y="130" width="180" height="58" as="geometry"/>
+          <mxGeometry x="1220" y="130" width="180" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l0_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l0_n0" target="l0_n1">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l0_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l0_n1" target="l0_n2">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l0_e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l0_n2" target="l0_n3">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l0_e3" value="triggers" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l0_n3" target="l0_n4">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l0_e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l0_n4" target="l0_n5">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l0_e5" value="updates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l0_n5" target="l0_n6">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l1_n0" value="User&lt;br&gt;(Owner)" style="shape=umlActor;whiteSpace=wrap;html=1;strokeColor=#F9A825;fillColor=#FFFDE7;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="50" y="245" width="90" height="70" as="geometry"/>
+          <mxGeometry x="50" y="245" width="90" height="70" as="geometry" />
         </mxCell>
         <mxCell id="l1_n1" value="UpdateWorkspace&lt;br&gt;[name, settings, branding]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1565C0;strokeColor=#0D47A1;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="245" y="245" width="170" height="58" as="geometry"/>
+          <mxGeometry x="245" y="245" width="170" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l1_n2" value="Workspace Aggregate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9A825;strokeColor=#F57F17;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="440" y="245" width="150" height="64" as="geometry"/>
+          <mxGeometry x="440" y="245" width="150" height="64" as="geometry" />
         </mxCell>
         <mxCell id="l1_n3" value="WorkspaceUpdated" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=#BF360C;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="635" y="245" width="160" height="58" as="geometry"/>
+          <mxGeometry x="635" y="245" width="160" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l1_n4" value="Workspace Detail&lt;br&gt;[read model]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#194D19;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="830" y="245" width="180" height="58" as="geometry"/>
+          <mxGeometry x="830" y="245" width="180" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l1_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l1_n0" target="l1_n1">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l1_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l1_n1" target="l1_n2">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l1_e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l1_n2" target="l1_n3">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l1_e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l1_n3" target="l1_n4">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l2_n0" value="System Admin" style="shape=umlActor;whiteSpace=wrap;html=1;strokeColor=#F9A825;fillColor=#FFFDE7;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="50" y="360" width="90" height="70" as="geometry"/>
+          <mxGeometry x="50" y="360" width="90" height="70" as="geometry" />
         </mxCell>
         <mxCell id="l2_n1" value="SuspendWorkspace" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1565C0;strokeColor=#0D47A1;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="245" y="360" width="170" height="58" as="geometry"/>
+          <mxGeometry x="245" y="360" width="170" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l2_n2" value="Workspace Aggregate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9A825;strokeColor=#F57F17;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="440" y="360" width="150" height="64" as="geometry"/>
+          <mxGeometry x="440" y="360" width="150" height="64" as="geometry" />
         </mxCell>
         <mxCell id="l2_n3" value="WorkspaceSuspended" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=#BF360C;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="635" y="360" width="160" height="58" as="geometry"/>
+          <mxGeometry x="635" y="360" width="160" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l2_n4" value="NotifyMembers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;strokeColor=#4A148C;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="830" y="360" width="170" height="58" as="geometry"/>
+          <mxGeometry x="830" y="360" width="170" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l2_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l2_n0" target="l2_n1">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l2_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l2_n1" target="l2_n2">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l2_e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l2_n2" target="l2_n3">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l2_e3" value="triggers" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l2_n3" target="l2_n4">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l3_n0" value="System Admin" style="shape=umlActor;whiteSpace=wrap;html=1;strokeColor=#F9A825;fillColor=#FFFDE7;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="50" y="475" width="90" height="70" as="geometry"/>
+          <mxGeometry x="50" y="475" width="90" height="70" as="geometry" />
         </mxCell>
         <mxCell id="l3_n1" value="ActivateWorkspace" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1565C0;strokeColor=#0D47A1;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="245" y="475" width="170" height="58" as="geometry"/>
+          <mxGeometry x="245" y="475" width="170" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l3_n2" value="Workspace Aggregate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9A825;strokeColor=#F57F17;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="440" y="475" width="150" height="64" as="geometry"/>
+          <mxGeometry x="440" y="475" width="150" height="64" as="geometry" />
         </mxCell>
         <mxCell id="l3_n3" value="WorkspaceActivated" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=#BF360C;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="635" y="475" width="160" height="58" as="geometry"/>
+          <mxGeometry x="635" y="475" width="160" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l3_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l3_n0" target="l3_n1">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l3_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l3_n1" target="l3_n2">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l3_e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l3_n2" target="l3_n3">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l4_n0" value="User&lt;br&gt;(Owner)" style="shape=umlActor;whiteSpace=wrap;html=1;strokeColor=#F9A825;fillColor=#FFFDE7;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="50" y="590" width="90" height="70" as="geometry"/>
+          <mxGeometry x="50" y="590" width="90" height="70" as="geometry" />
         </mxCell>
         <mxCell id="l4_n1" value="DeleteWorkspace" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1565C0;strokeColor=#0D47A1;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="245" y="590" width="170" height="58" as="geometry"/>
+          <mxGeometry x="245" y="590" width="170" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l4_n2" value="Workspace Aggregate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9A825;strokeColor=#F57F17;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="440" y="590" width="150" height="64" as="geometry"/>
+          <mxGeometry x="440" y="590" width="150" height="64" as="geometry" />
         </mxCell>
         <mxCell id="l4_n3" value="WorkspaceDeleted" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=#BF360C;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="635" y="590" width="160" height="58" as="geometry"/>
+          <mxGeometry x="635" y="590" width="160" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l4_n4" value="CleanupResources" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;strokeColor=#4A148C;fontColor=#FFFFFF;fontStyle=1;arcSize=10;" vertex="1" parent="1">
-          <mxGeometry x="830" y="590" width="170" height="58" as="geometry"/>
+          <mxGeometry x="830" y="590" width="170" height="58" as="geometry" />
         </mxCell>
         <mxCell id="l4_e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l4_n0" target="l4_n1">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l4_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l4_n1" target="l4_n2">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l4_e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l4_n2" target="l4_n3">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="l4_e3" value="triggers" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#555555;fontSize=10;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;" edge="1" parent="1" source="l4_n3" target="l4_n4">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

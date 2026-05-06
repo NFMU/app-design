@@ -10,6 +10,8 @@ The platform must let administrators create an organization boundary, configure 
 - Tenant creation must include assigning a default plan and basic tenant metadata.
 - Tenant creation must also provision a default workspace for collaboration.
 - A `Super Admin` can activate, suspend or lock, and unlock a tenant.
+- A `Super Admin` can identify whether a tenant is billable, free, trial, or covered by a manual billing exception.
+- A `Super Admin` and authorized tenant billing roles can inspect the tenant entitlement summary without exposing raw payment credentials.
 - A `Tenant Admin` or `Workspace Admin` can create and update a workspace.
 - A `Tenant Admin` can disable or soft delete a workspace.
 - A `Tenant Admin` or `Workspace Admin` can invite a member to the workspace.
@@ -26,13 +28,17 @@ The platform must let administrators create an organization boundary, configure 
 ## Business Rules
 
 - Each tenant must have at least one plan association at creation time.
+- A billable tenant must have billing requirements satisfied before paid entitlements are fully enabled.
+- Tenant entitlement status must distinguish tenant lifecycle status from billing access state so payment recovery or an approved billing override can restore access without recreating the tenant.
 - Each tenant must have a default collaboration boundary before members start interacting.
+- Billing-driven tenant suspension or restriction must preserve the tenant collaboration boundary and data history.
 - Invitations may target the whole collaboration boundary or a specific channel, depending on the invite scenario.
 - Membership is the authoritative record that a user belongs to the collaboration boundary.
 
 ## Persisted Concepts Expected By Downstream Design
 
 - plan
+- subscription state
 - tenant
 - workspace or collaboration boundary
 - membership

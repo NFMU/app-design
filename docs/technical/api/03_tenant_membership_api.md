@@ -18,7 +18,15 @@ Tenant:
   "timezone": "UTC",
   "locale": "en-US",
   "branding": {},
-  "settings": {}
+  "settings": {},
+  "entitlement_summary": {
+    "plan_id": 1,
+    "source": "subscription",
+    "subscription_status": "active",
+    "billing_access_state": "enabled",
+    "active_billing_override_id": null,
+    "current_period_end": "2026-06-01T00:00:00.000Z"
+  }
 }
 ```
 
@@ -60,6 +68,7 @@ Invitation:
 | POST | `/tenants` | Create tenant and default collaboration boundary. |
 | GET | `/tenants` | List tenants visible to the caller. |
 | GET | `/tenants/{tenantId}` | Get tenant detail. |
+| GET | `/tenants/{tenantId}/entitlement-summary` | Get read-only plan, subscription, override, and billing access state. |
 | PATCH | `/tenants/{tenantId}` | Update tenant metadata and settings. |
 | PATCH | `/tenants/{tenantId}/status` | Activate, suspend, lock, or unlock tenant. |
 | GET | `/tenants/{tenantId}/members` | List tenant members. |
@@ -111,6 +120,39 @@ Errors:
 | 403 | `FORBIDDEN` | Caller cannot update this tenant. |
 | 404 | `TENANT-NOT_FOUND` | Tenant was not found. |
 | 409 | `TENANT-SLUG_ALREADY_EXISTS` | Tenant slug already exists. |
+
+## GET `/tenants/{tenantId}/entitlement-summary`
+
+Returns a read-only summary derived from tenant plan and billing records. It must not include payment method details, invoice delivery data, provider payloads, or raw payment credentials.
+
+Success `data`:
+
+```json
+{
+  "tenant_id": 1001,
+  "plan_id": 1,
+  "source": "subscription",
+  "subscription_id": 7101,
+  "subscription_status": "active",
+  "billing_policy_id": 8001,
+  "billing_access_state": "enabled",
+  "active_billing_override_id": null,
+  "current_period_start": "2026-05-01T00:00:00.000Z",
+  "current_period_end": "2026-06-01T00:00:00.000Z"
+}
+```
+
+Allowed `source` values are `tenant_plan`, `subscription`, `trial`, `manual_override`, and `free`.
+
+Allowed `billing_access_state` values are `enabled`, `grace_period`, `restricted`, `suspended`, and `blocked`.
+
+Errors:
+
+| HTTP | Code | Message |
+|---:|---|---|
+| 403 | `FORBIDDEN` | Caller cannot view tenant entitlements. |
+| 404 | `TENANT-NOT_FOUND` | Tenant was not found. |
+| 402 | `PAYMENT_REQUIRED` | Tenant access is blocked by billing policy. |
 
 ## PATCH `/tenants/{tenantId}/status`
 
@@ -219,4 +261,3 @@ Errors:
 | 403 | `FORBIDDEN` | Caller cannot revoke this invitation. |
 | 404 | `INVITATION-NOT_FOUND` | Invitation was not found. |
 | 409 | `INVITATION-NOT_PENDING` | Only pending invitations can be revoked. |
-

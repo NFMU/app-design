@@ -235,4 +235,3 @@ Errors:
 | 403 | `FORBIDDEN` | Caller cannot attach files to this message. |
 | 404 | `MESSAGE-NOT_FOUND` | Message was not found. |
 | 409 | `MESSAGE-DELETED` | Cannot attach files to a deleted message. |
-

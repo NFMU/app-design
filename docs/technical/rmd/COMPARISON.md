@@ -6,6 +6,8 @@ As of 2026-05-05, the detailed identity RMD in `01_indentity_and_personal.drawio
 
 The identity examples in this historical comparison may use earlier spec names such as `phone`, `notifications_json`, or `preferences_json`. The implemented source currently uses `phone_number`, `language_id`, `timezone_id`, `theme`, `two_factor_enabled`, and `marketing_emails_enabled`.
 
+As of 2026-05-06, payment and subscription billing is modeled separately in `07_billing.drawio`, including subscription lifecycle, billing policies, manual billing overrides, invoices, payment transactions, and provider-event idempotency. The before/after table counts below remain a historical comparison of the tenant/workspace simplification and do not include the new billing context.
+
 ## Table Count
 
 | Aspect | Before | After | Change |

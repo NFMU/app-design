@@ -1,48 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mxfile host="app.diagrams.net" modified="2026-04-20T12:20:00.000Z" agent="Codex" version="26.0.11">
+<mxfile host="app.diagrams.net" modified="2026-05-06T00:00:00.000Z" agent="Codex" version="26.0.11">
   <diagram id="erd-tenant" name="Page-1">
-    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="900" math="0" shadow="0">
+    <mxGraphModel fold="1" pageWidth="1500" dx="1800" tooltips="1" guides="1" connect="1" grid="1" shadow="0" math="0" pageHeight="900" dy="1100" gridSize="10" pageScale="1" page="1" arrows="1">
       <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
-        <mxCell id="title_tenant_&amp;_subscription" value="Tenant &amp; Subscription" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="30" y="20" width="420" height="30" as="geometry"/>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Tenant &amp; Entitlement ERD" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="820" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Tenant is the Phase 1 collaboration boundary and entitlement holder." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#607D8B;" vertex="1" parent="1">
+          <mxGeometry x="30" y="48" width="980" height="24" as="geometry" />
         </mxCell>
         <mxCell id="users" value="users" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DDEBF7;strokeColor=#AAB7C4;dashed=1;fontStyle=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="70" y="345" width="170" height="52" as="geometry"/>
+          <mxGeometry x="70" y="345" width="170" height="52" as="geometry" />
         </mxCell>
         <mxCell id="plans" value="plans" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#5DADE2;strokeColor=#2E86C1;fontStyle=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="410" y="70" width="170" height="52" as="geometry"/>
-        </mxCell>
-        <mxCell id="applied_to" value="Applied To" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="595" y="220" width="78" height="42" as="geometry"/>
-        </mxCell>
-        <mxCell id="creates" value="Creates" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="290" y="285" width="78" height="42" as="geometry"/>
-        </mxCell>
-        <mxCell id="owns" value="Owns" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="290" y="435" width="78" height="42" as="geometry"/>
+          <mxGeometry x="410" y="70" width="170" height="52" as="geometry" />
         </mxCell>
         <mxCell id="tenants" value="tenants" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#5DADE2;strokeColor=#2E86C1;fontStyle=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="760" y="345" width="170" height="52" as="geometry"/>
+          <mxGeometry x="760" y="345" width="170" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="p1_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="plans" target="applied_to">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="e1" value="applied to" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERone;endArrow=ERzeroToMany;" edge="1" parent="1" source="plans" target="tenants">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p1_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERzeroToMany;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="applied_to" target="tenants">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="e2" value="creates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERone;endArrow=ERzeroToMany;" edge="1" parent="1" source="users" target="tenants">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="creates">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p2_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="creates" target="tenants">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p3_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="owns">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p3_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="owns" target="tenants">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="e3" value="owns" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERone;endArrow=ERzeroToMany;" edge="1" parent="1" source="users" target="tenants">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

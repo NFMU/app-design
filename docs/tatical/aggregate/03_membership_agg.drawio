@@ -3,25 +3,25 @@
   <diagram id="03_membership_agg" name="Page-1">
     <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1880" pageHeight="1180" math="0" shadow="0">
       <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
         <mxCell id="title" value="Membership Aggregate - Detail Design" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="30" y="20" width="640" height="30" as="geometry"/>
+          <mxGeometry x="30" y="20" width="640" height="30" as="geometry" />
         </mxCell>
         <mxCell id="subtitle" value="Aggregate root, supporting types, and emitted domain events" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#607D8B;" vertex="1" parent="1">
-          <mxGeometry x="30" y="48" width="620" height="24" as="geometry"/>
+          <mxGeometry x="30" y="48" width="620" height="24" as="geometry" />
         </mxCell>
         <mxCell id="root" value="&lt;table style=&quot;width:100%;height:100%;border-collapse:collapse;font-size:11px;font-family:Arial;&quot;&gt;&lt;tr&gt;&lt;td style=&quot;background:#F9A825;color:#212121;font-weight:bold;text-align:center;border:1px solid #7F8C8D;padding:4px;&quot;&gt;tenant_members&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#FFF8E1;padding:4px;vertical-align:top;&quot;&gt;Identity: id&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#FFF8E1;padding:4px;vertical-align:top;&quot;&gt;Links: tenant_id, user_id, invited_by&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#FFF8E1;padding:4px;vertical-align:top;&quot;&gt;Lifecycle: join(), leave(), suspend(), reactivate(), remove()&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#FFF8E1;padding:4px;vertical-align:top;&quot;&gt;Status timestamps: joined_at, left_at, removed_at&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#FFFFFF;strokeColor=#7F8C8D;overflow=fill;" vertex="1" parent="1">
-          <mxGeometry x="60" y="110" width="360" height="130" as="geometry"/>
+          <mxGeometry x="60" y="110" width="360" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="s0" value="&lt;table style=&quot;width:100%;height:100%;border-collapse:collapse;font-size:11px;font-family:Arial;&quot;&gt;&lt;tr&gt;&lt;td style=&quot;background:#5DADE2;color:#FFFFFF;font-weight:bold;text-align:center;border:1px solid #7F8C8D;padding:4px;&quot;&gt;invitations&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#F4F6F7;padding:4px;vertical-align:top;&quot;&gt;id, tenant_id, channel_id?&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#F4F6F7;padding:4px;vertical-align:top;&quot;&gt;invited_by, accepted_by_user_id?&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#F4F6F7;padding:4px;vertical-align:top;&quot;&gt;email, invite_type, role_scope, role_code&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#F4F6F7;padding:4px;vertical-align:top;&quot;&gt;token, status, expires_at, accepted_at&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#FFFFFF;strokeColor=#7F8C8D;overflow=fill;" vertex="1" parent="1">
-          <mxGeometry x="500" y="110" width="360" height="130" as="geometry"/>
+        <mxCell id="s0" value="&lt;table style=&quot;width:100%;height:100%;border-collapse:collapse;font-size:11px;font-family:Arial;&quot;&gt;&lt;tr&gt;&lt;td style=&quot;background:#5DADE2;color:#FFFFFF;font-weight:bold;text-align:center;border:1px solid #7F8C8D;padding:4px;&quot;&gt;invitations&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#FFFFFF;padding:4px;vertical-align:top;&quot;&gt;id, tenant_id, channel_id?&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#FFFFFF;padding:4px;vertical-align:top;&quot;&gt;invited_by, accepted_by_user_id?&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#FFFFFF;padding:4px;vertical-align:top;&quot;&gt;email, invite_type, role_scope, role_code&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;border:1px solid #CCD1D1;background:#FFFFFF;padding:4px;vertical-align:top;&quot;&gt;token, status, expires_at, accepted_at&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=0;fillColor=#FFFFFF;strokeColor=#7F8C8D;overflow=fill;" vertex="1" parent="1">
+          <mxGeometry x="500" y="110" width="360" height="130" as="geometry" />
         </mxCell>
         <mxCell id="e_root_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#95A5A6;endArrow=block;endFill=1;" edge="1" parent="1" source="root" target="s0">
-          <mxGeometry relative="1" as="geometry"/>
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="note" value="Invitation acceptance creates membership and bootstraps default role assignment." style="shape=note;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;" vertex="1" parent="1">
-          <mxGeometry x="500" y="360" width="380" height="90" as="geometry"/>
+          <mxGeometry x="500" y="360" width="380" height="90" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

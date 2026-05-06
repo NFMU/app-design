@@ -11,9 +11,9 @@ Role:
   "id": 9001,
   "tenant_id": 1001,
   "scope_type": "tenant",
-  "code": "tenant_admin",
-  "name": "Tenant Admin",
-  "description": "Can manage tenant members and settings",
+  "code": "billing_admin",
+  "name": "Billing Admin",
+  "description": "Can manage tenant subscription, invoices, and payment settings",
   "is_system": true
 }
 ```
@@ -24,11 +24,24 @@ Permission:
 {
   "id": 9101,
   "scope_type": "tenant",
-  "code": "tenant.members.invite",
-  "name": "Invite tenant members",
-  "description": "Allows inviting users to a tenant"
+  "code": "tenant.billing.subscription.manage",
+  "name": "Manage tenant subscription",
+  "description": "Allows starting, changing, canceling, or recovering a tenant subscription"
 }
 ```
+
+## Seeded Billing Permissions
+
+| Scope | Code | Intended roles |
+|---|---|---|
+| platform | `platform.billing.prices.manage` | `super_admin` |
+| tenant | `tenant.billing.profile.manage` | `tenant_admin`, `billing_admin` |
+| tenant | `tenant.billing.subscription.manage` | `tenant_admin`, `billing_admin` |
+| tenant | `tenant.billing.payment_methods.manage` | `tenant_admin`, `billing_admin` |
+| tenant | `tenant.billing.invoices.read` | `tenant_admin`, `billing_admin` |
+| tenant | `tenant.billing.overrides.apply` | `super_admin` or explicitly delegated billing operator |
+| tenant | `tenant.entitlements.read` | `tenant_admin`, `billing_admin`, selected support roles |
+Members without these permissions must not receive invoice-delivery fields, payment method display references, provider references, billing override details, or billing provider event metadata.
 
 ## Endpoint Summary
 
@@ -55,6 +68,7 @@ Query:
 | Field | Type | Notes |
 |---|---|---|
 | `scope_type` | string | Optional `platform`, `tenant`, `channel`, or `self`. |
+| `code_prefix` | string | Optional prefix such as `tenant.billing.`. |
 
 Errors:
 
@@ -216,6 +230,8 @@ Success `data`:
     "channel_id": 5001
   },
   "permissions": [
+    "tenant.entitlements.read",
+    "tenant.billing.invoices.read",
     "channel.messages.read",
     "channel.messages.send"
   ]
@@ -230,4 +246,3 @@ Errors:
 | 403 | `FORBIDDEN` | Caller cannot inspect this context. |
 | 404 | `TENANT-NOT_FOUND` | Tenant was not found. |
 | 404 | `CHANNEL-NOT_FOUND` | Channel was not found. |
-

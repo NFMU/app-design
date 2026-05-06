@@ -1,122 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mxfile host="app.diagrams.net" modified="2026-04-20T12:20:00.000Z" agent="Codex" version="26.0.11">
+<mxfile host="app.diagrams.net" modified="2026-05-06T00:00:00.000Z" agent="Codex" version="26.0.11">
   <diagram id="erd-membership" name="Page-1">
-    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel fold="1" pageWidth="1700" dx="1800" tooltips="1" guides="1" connect="1" grid="1" shadow="0" math="0" pageHeight="1100" dy="1100" gridSize="10" pageScale="1" page="1" arrows="1">
       <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
-        <mxCell id="title_membership_&amp;_invitation" value="Membership &amp; Invitation" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="30" y="20" width="420" height="30" as="geometry"/>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Membership &amp; Invitation ERD" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="820" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Tenant membership represents participation in the Phase 1 collaboration boundary." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;fontColor=#607D8B;" vertex="1" parent="1">
+          <mxGeometry x="30" y="48" width="980" height="24" as="geometry" />
         </mxCell>
         <mxCell id="users" value="users" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DDEBF7;strokeColor=#AAB7C4;dashed=1;fontStyle=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="80" y="360" width="170" height="52" as="geometry"/>
+          <mxGeometry x="74" y="360" width="170" height="52" as="geometry" />
         </mxCell>
         <mxCell id="tenants" value="tenants" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DDEBF7;strokeColor=#AAB7C4;dashed=1;fontStyle=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="420" y="70" width="170" height="52" as="geometry"/>
+          <mxGeometry x="420" y="70" width="170" height="52" as="geometry" />
         </mxCell>
         <mxCell id="channels" value="channels" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DDEBF7;strokeColor=#AAB7C4;dashed=1;fontStyle=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="1100" y="70" width="170" height="52" as="geometry"/>
-        </mxCell>
-        <mxCell id="tenant_has_members" value="Has" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="470" y="230" width="78" height="42" as="geometry"/>
+          <mxGeometry x="1104" y="70" width="170" height="52" as="geometry" />
         </mxCell>
         <mxCell id="tenant_members" value="tenant_members" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#5DADE2;strokeColor=#2E86C1;fontStyle=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="420" y="380" width="170" height="52" as="geometry"/>
-        </mxCell>
-        <mxCell id="joins_tenant" value="Joins" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="245" y="400" width="78" height="42" as="geometry"/>
-        </mxCell>
-        <mxCell id="channel_has_members" value="Has" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="1150" y="230" width="78" height="42" as="geometry"/>
+          <mxGeometry x="370" y="480" width="170" height="52" as="geometry" />
         </mxCell>
         <mxCell id="channel_members" value="channel_members" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#5DADE2;strokeColor=#2E86C1;fontStyle=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="380" width="170" height="52" as="geometry"/>
-        </mxCell>
-        <mxCell id="joins_channel" value="Joins" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="830" y="400" width="78" height="42" as="geometry"/>
+          <mxGeometry x="1104" y="390" width="190" height="52" as="geometry" />
         </mxCell>
         <mxCell id="invitations" value="invitations" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#5DADE2;strokeColor=#2E86C1;fontStyle=1;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="720" y="720" width="170" height="52" as="geometry"/>
+          <mxGeometry x="784" y="720" width="170" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="sends_invite" value="Sends" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="540" y="570" width="78" height="42" as="geometry"/>
+        <mxCell id="e1" value="has" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERone;endArrow=ERzeroToMany;" edge="1" parent="1" source="tenants" target="tenant_members">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="targets_invite" value="Targets" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="900" y="570" width="78" height="42" as="geometry"/>
+        <mxCell id="e2" value="joins" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERone;endArrow=ERzeroToMany;" edge="1" parent="1" source="users" target="tenant_members">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="invited_by" value="Invited By" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="315" y="700" width="78" height="42" as="geometry"/>
+        <mxCell id="e3" value="has" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERone;endArrow=ERzeroToMany;" edge="1" parent="1" source="channels" target="channel_members">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="accepted_by" value="Accepted By" style="rhombus;whiteSpace=wrap;html=1;fillColor=#F8C471;strokeColor=#D68910;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry x="315" y="790" width="78" height="42" as="geometry"/>
+        <mxCell id="e4" value="joins" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERone;endArrow=ERzeroToMany;" edge="1" parent="1" source="users" target="channel_members">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p1_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tenants" target="tenant_has_members">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="e5" value="sends" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERone;endArrow=ERzeroToMany;" edge="1" parent="1" source="tenants" target="invitations">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p1_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tenant_has_members" target="tenant_members">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="e6" value="optionally targets" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERzeroToOne;endArrow=ERzeroToMany;" edge="1" parent="1" source="channels" target="invitations">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="p2_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="joins_tenant">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p2_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="joins_tenant" target="tenant_members">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p3_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="channels" target="channel_has_members">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p3_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="channel_has_members" target="channel_members">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p4_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="joins_channel">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p4_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;" edge="1" parent="1" source="joins_channel" target="channel_members">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p5_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tenants" target="sends_invite">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p5_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.2;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sends_invite" target="invitations">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p6_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="channels" target="targets_invite">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p6_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERzeroToOne;endArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.8;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="targets_invite" target="invitations">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="p7_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.82;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="invited_by">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="250" y="730"/>
-              <mxPoint x="315" y="720"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="p7_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" edge="1" parent="1" source="invited_by" target="invitations">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="393" y="720"/>
-              <mxPoint x="720" y="750"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="p8_a" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERone;endArrow=ERzeroToMany;exitX=1;exitY=0.9;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="users" target="accepted_by">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="250" y="820"/>
-              <mxPoint x="315" y="810"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="p8_b" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#AAB7B8;startFill=0;endFill=0;;startArrow=ERzeroToOne;endArrow=ERone;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;" edge="1" parent="1" source="accepted_by" target="invitations">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="400" y="810"/>
-              <mxPoint x="720" y="810"/>
-            </Array>
-          </mxGeometry>
+        <mxCell id="e7" value="accepts" style="edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#78909C;fontSize=11;labelBackgroundColor=#FFFFFF;startFill=0;endFill=0;startArrow=ERone;endArrow=ERzeroToMany;" edge="1" parent="1" source="users" target="invitations">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

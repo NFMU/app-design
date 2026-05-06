@@ -10,6 +10,7 @@
 ## Structural Rules
 
 - `plans` defines commercial or capability limits for a tenant.
+- `plans` remains the product and entitlement catalog; subscription billing details are modeled separately in the billing spec.
 - `tenants` is the persisted collaboration boundary for Phase 1.
 - `tenant_members` is the authoritative membership record for a user inside `tenants`.
 - `invitations` is a persisted record for onboarding and optional scoped channel access.
@@ -71,6 +72,8 @@
 ## Constraint Hints
 
 - every `tenants` row belongs to exactly one `plans` row in Phase 1
+- `tenants.plan_id` represents the current entitlement plan and may be derived from an active subscription when billing is enabled
+- tenant read models may expose a derived entitlement summary with billing source, subscription status, active override, and access state; these fields are not owned by the `tenants` table
 - `tenant_members` belongs to exactly one `tenants` row and one `users` row
 - `invitations.channel_id` is optional because some invitations target the whole collaboration boundary
 - `accepted_by_user_id` stays nullable until the invite is completed
@@ -80,3 +83,4 @@
 
 The collaboration foundation intentionally does not introduce a separate `workspaces` table in Phase 1.
 Business flows that refer to workspace creation or workspace administration map onto the `tenants` boundary and its settings payloads.
+Payment and subscription lifecycle records must remain outside `tenants`; billing state can restrict or suspend access without changing the tenant's collaboration identity.

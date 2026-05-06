@@ -20,6 +20,18 @@ The currently implemented REST endpoints are:
 
 All other endpoints in this folder are clean target contracts for APIs that are not implemented yet.
 
+## Planned Document Set
+
+| Document | Domain |
+|---|---|
+| `01_identity_auth_api.md` | Identity and authentication |
+| `02_profile_settings_api.md` | Profile and personal settings |
+| `03_tenant_membership_api.md` | Tenant, membership, and invitation |
+| `04_channel_api.md` | Channel management |
+| `05_messaging_api.md` | Messaging, reads, pins, and attachments |
+| `06_rbac_api.md` | RBAC enforcement |
+| `07_billing_api.md` | Payment and subscription billing |
+
 ## Base URL
 
 The identity service currently has no global API prefix. Paths are documented relative to the service root.
@@ -84,6 +96,7 @@ Implementation note: the current validation pipe throws a Nest `BadRequestExcept
 | 400 | `VALIDATION_ERROR` | Request body, query, or route parameter failed schema validation. |
 | 400 | `BAD_REQUEST` | Request is syntactically valid but cannot be processed. |
 | 401 | `UNAUTHORIZED` | Missing, expired, or invalid access token. |
+| 402 | `PAYMENT_REQUIRED` | Required subscription or payment state is missing, past due, or blocked by billing policy. |
 | 403 | `FORBIDDEN` | Authenticated user lacks permission for the action. |
 | 404 | `NOT_FOUND` | Requested resource does not exist or is not visible to the caller. |
 | 409 | `CONFLICT` | Request conflicts with an existing resource or current lifecycle state. |
@@ -97,8 +110,15 @@ Implementation note: the current validation pipe throws a Nest `BadRequestExcept
 | `users.id`, `user_profiles.id`, `user_settings.id`, `user_sessions.id`, `password_resets.id` | UUID string in the current identity source code |
 | `languages.id`, `timezones.id`, `locations.id` | Integer |
 | Planned collaboration IDs | Opaque ID in API contracts; current RMD uses integer unless later source code chooses UUID |
+| Planned billing IDs | Opaque ID in API contracts; billing RMD uses integer unless later source code chooses UUID |
 | Date and time values | ISO 8601 string |
 | Soft delete fields | `deleted_at` or equivalent lifecycle timestamp in persistence; APIs expose lifecycle status unless the timestamp is needed |
+
+## Payment Data Boundary
+
+Billing APIs must not accept or return raw card, bank account, or sensitive payment credential values. Payment setup should use a provider-hosted or provider-tokenized flow, and API responses should expose only display-safe references such as brand, last four digits, expiry, and provider reference IDs where the caller is authorized.
+
+Billing access state is evaluated separately from tenant lifecycle state. Tenant, channel, messaging, and membership endpoints may return `402 PAYMENT_REQUIRED` when an authenticated caller has permission but the tenant's entitlement summary is `restricted`, `suspended`, or `blocked` by billing policy. Payment recovery or an active billing override can restore access without recreating tenant, workspace, membership, channel, or message records.
 
 ## Pagination
 

@@ -175,4 +175,3 @@ Errors:
 |---:|---|---|
 | 400 | `VALIDATION_ERROR` | Validation failed. |
 | 404 | `CHANNEL-MEMBER_NOT_FOUND` | Caller is not a channel member. |
-
