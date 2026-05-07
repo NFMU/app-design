@@ -2,9 +2,16 @@
 
 ## Source Alignment Note
 
-As of 2026-05-05, the detailed identity RMD in `01_indentity_and_personal.drawio` is aligned with the implemented TypeORM entities in `d:/Workspace/Github/chat-slack/identity`.
+As of 2026-05-05, the detailed identity RMD in `01_indentity_and_personal.drawio` is aligned with the implemented TypeORM entities in
+`d:/Workspace/Github/chat-slack/services/identity/src/database/entities/`.
 
-This refactoring summary remains useful for the tenant/workspace simplification, but identity field examples from the older spec should be read as historical. The implemented source currently uses `phone_number`, reference-backed `language_id` and `timezone_id`, `theme`, `two_factor_enabled`, and `marketing_emails_enabled`.
+Identity field examples from the older spec have been superseded. The canonical column names are now documented in `docs/analysis/specs/01_identity_and_profile.md`. Key changes from the old spec:
+
+- `user_profiles`: uses `phone_number` (not `phone`), adds `first_name`, `last_name`, `company`, `website`, `location_id` (FK), `date_of_birth`; removes `status` and `language_code`, `timezone`.
+- `user_settings`: uses `language_id` (FK → `languages`), `timezone_id` (FK → `timezones`), `theme` (enum), `two_factor_enabled`, `marketing_emails_enabled`; removes `notifications_json` and `preferences_json`.
+- `user_sessions`: uses `last_used_at` (not `last_seen_at`).
+- `password_resets`: adds `requested_ip` and `requested_user_agent`.
+- New tables: `email_verifications`, `languages`, `locations`, `timezones`.
 
 As of 2026-05-06, payment and subscription billing is documented as a separate context in `07_billing.drawio`. This keeps tenant entitlement fields separate from subscription lifecycle, billing policies, manual billing overrides, invoice, and payment records.
 

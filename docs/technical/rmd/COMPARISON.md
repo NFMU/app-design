@@ -2,9 +2,26 @@
 
 ## Source Alignment Note
 
-As of 2026-05-05, the detailed identity RMD in `01_indentity_and_personal.drawio` is aligned with the implemented TypeORM entities in `d:/Workspace/Github/chat-slack/identity`.
+As of 2026-05-05, the detailed identity RMD in `01_indentity_and_personal.drawio` is aligned with the implemented TypeORM entities in
+`d:/Workspace/Github/chat-slack/services/identity/src/database/entities/`.
 
-The identity examples in this historical comparison may use earlier spec names such as `phone`, `notifications_json`, or `preferences_json`. The implemented source currently uses `phone_number`, `language_id`, `timezone_id`, `theme`, `two_factor_enabled`, and `marketing_emails_enabled`.
+**Implemented identity column names (authoritative):**
+
+| Spec name (old) | Implemented column | Table |
+|---|---|---|
+| `phone` | `phone_number` | `user_profiles` |
+| `language_code` | `language_id` (FK → `languages.id`) | `user_settings` |
+| `timezone` | `timezone_id` (FK → `timezones.id`) | `user_settings` |
+| `notifications_json` | `marketing_emails_enabled` (bool) | `user_settings` |
+| `preferences_json` | `theme` (enum), `two_factor_enabled` (bool) | `user_settings` |
+| `last_seen_at` | `last_used_at` | `user_sessions` |
+| `status` (presence) | removed — `user_profiles` has no status column | `user_profiles` |
+
+**Additional implemented tables not in the original spec:**
+- `email_verifications` — email verification token table
+- `languages` — reference table (id, code, locale, name)
+- `locations` — reference table (id, code, name)
+- `timezones` — reference table (id, name, utc_offset)
 
 As of 2026-05-06, payment and subscription billing is modeled separately in `07_billing.drawio`, including subscription lifecycle, billing policies, manual billing overrides, invoices, payment transactions, and provider-event idempotency. The before/after table counts below remain a historical comparison of the tenant/workspace simplification and do not include the new billing context.
 
