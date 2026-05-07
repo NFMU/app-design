@@ -57,8 +57,8 @@ Core collaboration boundary. Each row represents one organization workspace in P
 | `slug` | `varchar(100)` | NOT NULL, unique within deployment | URL-safe identifier used in routing, e.g. `acme-corp`. Unique constraint scoped to the deployment domain. |
 | `domain` | `varchar(255)` | nullable, unique | Custom domain for SSO auto-enrollment, e.g. `acme.com`. Null means no domain restriction. |
 | `status` | `varchar(20)` | NOT NULL, default `'active'` | Tenant lifecycle state: `active` \| `suspended` \| `deleted`. |
-| `timezone` | `varchar(100)` | NOT NULL, default `'UTC'` | IANA timezone for the organization (used for display and scheduled notifications). |
-| `locale` | `varchar(20)` | NOT NULL, default `'en'` | Default BCP 47 locale for members who have not set a personal preference. |
+| `timezone_id` | `uuid` | NOT NULL | **Cross-service reference** → `identity.timezones.uuid`. The IANA timezone for the organization. Validated via `GET /internal/reference/timezones/{uuid}` at write time; no DB-level FK. |
+| `language_id` | `uuid` | NOT NULL | **Cross-service reference** → `identity.languages.uuid`. Default UI language for members who have not set a personal preference. Validated via `GET /internal/reference/languages/{uuid}` at write time; no DB-level FK. |
 | `branding_json` | `jsonb` | NOT NULL, default `'{}'` | Visual identity overrides: `logo_url`, primary `color`, and `theme`. |
 | `settings_json` | `jsonb` | NOT NULL, default `'{}'` | Operational policies: message retention days, guest access toggle, file-sharing rules, SSO configuration. |
 | `activated_at` | `timestamptz` | nullable | Set when the tenant first becomes usable (e.g. after email verification of the owner). |

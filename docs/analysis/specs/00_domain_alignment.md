@@ -58,6 +58,32 @@ This rule is intentionally stronger than older diagrams because it reflects the 
 - Diagrams are stored as editable, uncompressed draw.io XML
 - Repository naming in technical diagrams prefers plural `snake_case`
 
+## Service Boundaries And Data Ownership
+
+The collaboration platform is a microservice system. Each canonical table is owned by exactly one service and is only writable by that service's code. The full topology is documented in `docs/technical/architecture/00_microservice_overview.md`.
+
+Phase 1 service-to-table assignments:
+
+- `identity` owns `users`, `user_profiles`, `user_settings`, `user_sessions`, `password_resets`, `email_verifications`, and the **shared reference tables** `languages`, `timezones`, `locations`.
+- `tenants` owns `plans`, `tenants`, `tenant_members`, `invitations`.
+- `channels` (planned) owns `channels`, `channel_members`.
+- `messaging` (planned) owns `messages`, `message_reads`, `message_pins`, `message_attachments`.
+- `rbac` (planned) owns `roles`, `permissions`, `role_permissions`, `tenant_member_roles`, `channel_member_roles`.
+- `billing` (planned) owns the ten billing tables listed in `06_payment_and_subscription_billing.md`.
+
+## Cross-Service Reference Rule
+
+When a column in one service's database refers to a row owned by another service:
+
+- **Do not** add a database-level foreign key across services.
+- **Do** store only the primary key value, using a column type compatible with the owning side's PK (e.g. `uuid` for `users.id`, `integer` for `languages.id`).
+- **Do not** snapshot non-key fields from the referenced row into the consumer's table; hydrate at the API boundary instead.
+- Validate the reference at the application layer by calling the owning service's API before persisting (or by maintaining a periodically refreshed cache for hot paths).
+
+The contract for the most-used cross-service references — `languages`, `timezones`, `locations` — is defined in `docs/technical/architecture/01_shared_reference_resources.md`.
+
+This rule applies to all new specs and overrides any earlier diagram that drew an FK line across service boundaries.
+
 ## Persistence Principles
 
 - keep the model conservative and avoid speculative tables

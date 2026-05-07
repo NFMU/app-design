@@ -170,7 +170,8 @@ System-seeded lookup table. Not user-editable.
 
 | Column | Type | Constraints | Description |
 |---|---|---|---|
-| `id` | `integer` | PK, auto-increment | Integer surrogate key used by `user_settings.language_id`. |
+| `id` | `integer` | PK, auto-increment | Integer surrogate key. **Internal use only** — referenced by `user_settings.language_id` (same-service FK). Cross-service consumers must use `uuid` instead. |
+| `uuid` | `uuid` | NOT NULL, unique (`uq_languages_uuid`), auto-generated | Stable cross-service identifier. Referenced by columns in other services (e.g. `tenants.language_id`). Survives reseeding and is environment-agnostic. |
 | `code` | `varchar(10)` | NOT NULL, unique | BCP 47 language tag, e.g. `en`, `vi`, `ja`. |
 | `locale` | `varchar(100)` | NOT NULL, unique | Full locale string, e.g. `en-US`, `vi-VN`. |
 | `name` | `varchar(120)` | NOT NULL, unique | Human-readable name in English, e.g. `"English"`, `"Vietnamese"`. |
@@ -183,7 +184,8 @@ System-seeded country/region lookup table.
 
 | Column | Type | Constraints | Description |
 |---|---|---|---|
-| `id` | `integer` | PK, auto-increment | Integer surrogate key used by `user_profiles.location_id`. |
+| `id` | `integer` | PK, auto-increment | Integer surrogate key. **Internal use only** — referenced by `user_profiles.location_id` (same-service FK). |
+| `uuid` | `uuid` | NOT NULL, unique (`uq_locations_uuid`), auto-generated | Stable cross-service identifier. |
 | `code` | `varchar(2)` | NOT NULL, unique | ISO 3166-1 alpha-2 country code, e.g. `VN`, `US`, `JP`. |
 | `name` | `varchar(120)` | NOT NULL, unique | English country name, e.g. `"Vietnam"`, `"United States"`. |
 
@@ -195,7 +197,8 @@ System-seeded timezone lookup table.
 
 | Column | Type | Constraints | Description |
 |---|---|---|---|
-| `id` | `integer` | PK, auto-increment | Integer surrogate key used by `user_settings.timezone_id`. |
+| `id` | `integer` | PK, auto-increment | Integer surrogate key. **Internal use only** — referenced by `user_settings.timezone_id` (same-service FK). |
+| `uuid` | `uuid` | NOT NULL, unique (`uq_timezones_uuid`), auto-generated | Stable cross-service identifier. Referenced by columns in other services (e.g. `tenants.timezone_id`). |
 | `name` | `varchar(100)` | NOT NULL, unique | IANA timezone identifier, e.g. `Asia/Ho_Chi_Minh`, `UTC`, `America/New_York`. |
 | `utc_offset` | `varchar(10)` | NOT NULL | Offset string for display, e.g. `+07:00`, `-05:00`. Not used for calculation — always use the IANA name. |
 

@@ -1,5 +1,107 @@
 # Change Log
 
+## 2026-05-07 - Reference Tables UUID Column
+
+### Schema Changes
+
+Added `uuid` column to identity-owned reference tables (`languages`, `timezones`, `locations`) so cross-service consumers can hold a stable, environment-agnostic identifier instead of an integer that depends on seed order.
+
+| Table | New column | Type | Constraints |
+|---|---|---|---|
+| `languages` | `uuid` | `uuid` | NOT NULL, unique (`uq_languages_uuid`), DB-generated via `uuid_generate_v4()`. |
+| `timezones` | `uuid` | `uuid` | NOT NULL, unique (`uq_timezones_uuid`), DB-generated. |
+| `locations` | `uuid` | `uuid` | NOT NULL, unique (`uq_locations_uuid`), DB-generated. |
+
+Cross-service consumer columns updated to UUID:
+
+- `tenants.timezone_id`: `integer` → `uuid` (references `identity.timezones.uuid`).
+- `tenants.language_id`: `integer` → `uuid` (references `identity.languages.uuid`).
+
+Same-service FKs in identity (`user_settings.language_id`, `user_settings.timezone_id`, `user_profiles.location_id`) remain integer — these are intra-DB and benefit from the smaller key.
+
+### Code Changes — `services/identity`
+
+- Updated entities `language.entity.ts`, `timezone.entity.ts`, `location.entity.ts` with `@Generated('uuid')` column.
+- New migration `1778500000000-add-reference-uuid-columns.ts` adds the columns and unique indexes; backfills existing rows via `uuid_generate_v4()` default.
+- Reference outputs (`LanguageOutput`, `TimezoneOutput`, `LocationOutput`) now return both `uuid` (cross-service) and `id` (internal).
+- Reference repository exposes `getXxxByUuid` (cross-service) and keeps `getXxxById` (internal-only, documented as such).
+- Public `/reference/{type}/{uuid}` and internal `/internal/reference/{type}/{uuid}` endpoints now take UUID in the path (was integer ID).
+- `ReferenceController` no longer requires JWT auth — reference lists are open data.
+
+### Code Changes — `services/tenants`
+
+- `tenant.orm.ts`: `timezoneId` and `languageId` columns retyped to `uuid` (`string` in TypeScript).
+
+### Doc Changes
+
+- `docs/analysis/specs/01_identity_and_profile.md` — added `uuid` row to each reference table; clarified usage rule.
+- `docs/analysis/specs/02_collaboration_foundation.md` — `tenants.{timezone,language}_id` documented as `uuid` referencing `identity.{timezones,languages}.uuid`.
+- `docs/technical/architecture/00_microservice_overview.md` — split identifier conventions into internal `id` vs cross-service `uuid` rows; updated cross-service reference inventory.
+- `docs/technical/architecture/01_shared_reference_resources.md` — schema recap, API examples, and consumer patterns now show UUID; added a *Resolved Decisions* entry.
+- `docs/technical/architecture/02_identity_service.md` — owned-tables row notes dual key; internal API table shows UUID paths.
+- `docs/technical/architecture/03_tenants_service.md` — outbound dependencies and cross-service reference table updated to UUID.
+
+### Operational Notes
+
+- The migration uses `uuid_generate_v4()` from the `uuid-ossp` extension. The extension is already enabled by the initial migration (`PrimaryGeneratedColumn('uuid')` on `users`); the new migration re-issues `CREATE EXTENSION IF NOT EXISTS` for safety.
+- Existing rows in deployed databases will receive freshly generated UUIDs, which means the `uuid` value differs across environments. Cross-service consumers must read the UUID from the relevant API rather than hardcoding it. If deterministic UUIDs are needed (e.g. for fixture-driven tests), plan a follow-up to seed UUIDs by `code` mapping.
+
+## 2026-05-07 - Reference ID Migration And Per-Service Architecture Docs
+
+### Schema Changes
+
+- `tenants.timezone` (varchar(100) string) replaced with `tenants.timezone_id` (integer, cross-service reference to `identity.timezones`).
+- `tenants.locale` (varchar(20) string) replaced with `tenants.language_id` (integer, cross-service reference to `identity.languages`).
+- Updated `services/tenants/src/infrastructure/orms/tenant.orm.ts` to match.
+- Updated `docs/analysis/specs/02_collaboration_foundation.md` column documentation.
+- Resolved the open question previously raised in `01_shared_reference_resources.md`: all cross-service references to identity-managed reference data now use IDs.
+
+### Added — Per-Service Architecture Docs
+
+Six new documents under `docs/technical/architecture/` describing each service in detail (responsibility, owned tables, module layout, public + internal API surfaces, inter-service dependencies, cross-service reference columns):
+
+- `02_identity_service.md` (implemented).
+- `03_tenants_service.md` (skeleton).
+- `04_channels_service.md` (planned).
+- `05_messaging_service.md` (planned).
+- `06_rbac_service.md` (planned).
+- `07_billing_service.md` (planned).
+
+### Added — Reference API Implementation In `services/identity`
+
+- `src/modules/references/` — full module implementing the contract from `01_shared_reference_resources.md`:
+  - `reference.controller.ts` exposes public `/reference/{type}` and `/reference/{type}/{id}` (Bearer auth).
+  - `internal-reference.controller.ts` exposes `/internal/reference/{type}` and `/internal/reference/{type}/{id}` (service-token auth).
+  - `reference.service.ts`, `reference.repository.ts`, `outputs/{language,timezone,location}.output.ts`.
+- `src/core/guards/service-token.guard.ts` — validates `X-Service-Token` against `INTERNAL_SERVICE_TOKEN` env var.
+- `src/core/decorators/service-auth.decorator.ts` — Swagger header decorator for documenting internal endpoints.
+- `src/core/errors/reference.error.ts` — error catalog (`REFERENCE-{LANGUAGE,TIMEZONE,LOCATION}_NOT_FOUND`, `REFERENCE-SERVICE_TOKEN_INVALID`).
+- `app.module.ts` updated to import `ReferenceModule`.
+
+### Operational Notes
+
+- Set `INTERNAL_SERVICE_TOKEN` in the deployment environment of every service that calls identity.
+- The current implementation does not yet add ETag / `If-None-Match` support; reference tables lack `updated_at` columns. Documented as future enhancement.
+- Internal endpoints are mounted alongside public endpoints in the same Nest application; they should be excluded from the public OpenAPI document via a Swagger include filter (deferred).
+
+## 2026-05-07 - Microservice Architecture Documentation
+
+### Added
+
+- Added `docs/technical/architecture/00_microservice_overview.md` — system design document covering service inventory (`identity`, `tenants` implemented; `channels`, `messaging`, `rbac`, `billing` planned), per-service data ownership map, inter-service communication conventions, and identifier types.
+- Added `docs/technical/architecture/01_shared_reference_resources.md` — formal contract for the `languages`, `timezones`, and `locations` reference tables owned by `identity` and consumed cross-service, including public `/reference/*` and internal `/internal/reference/*` API surfaces.
+
+### Updated
+
+- Updated `docs/analysis/specs/00_domain_alignment.md` with explicit service-to-table ownership assignments and a *Cross-Service Reference Rule* section: ID-only references, no cross-database foreign keys, validation at the application layer, hydration at the API boundary.
+
+### Modeling Decisions
+
+- Reference data with low write frequency (`languages`, `timezones`, `locations`) lives in `identity`. Other services consume by ID only.
+- Cross-service columns use a type compatible with the owning side's PK (`uuid` for `users.id`, `integer` for reference IDs). No database-level FK constraints span service boundaries.
+- Inter-service authentication uses a static `X-Service-Token` in Phase 1; mTLS / signed service JWTs are deferred.
+- `tenants.timezone` and `tenants.locale` continue to store IANA / locale strings directly in Phase 1 to avoid an inter-service hop on tenant reads, with an open question to revisit when `billing` reporting requires stable IDs.
+
 ## 2026-05-06 - Workspace Separation Rollback
 
 ### Updated
