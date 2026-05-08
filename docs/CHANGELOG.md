@@ -1,5 +1,50 @@
 # Change Log
 
+## 2026-05-08 - Tenants Service Shared Types Extraction
+
+### Code Changes — `services/tenants/src/shared/`
+
+Promoted previously inline enum and JSON-shape types from the ORM layer to a service-wide `shared/` folder so application, domain, and presentation code can consume them without depending on `infrastructure/database/orms/*.orm.ts`.
+
+**New files:**
+
+```
+services/tenants/src/shared/
+├── enums/
+│   ├── invitation-role-scope.enum.ts   # InvitationRoleScope
+│   ├── invitation-status.enum.ts       # InvitationStatus
+│   ├── invitation-type.enum.ts         # InvitationType
+│   ├── plan-status.enum.ts             # PlanStatus
+│   ├── tenant-member-status.enum.ts    # TenantMemberStatus
+│   ├── tenant-status.enum.ts           # TenantStatus
+│   └── index.ts
+├── types/
+│   ├── json-object.type.ts             # JsonValue, JsonObject
+│   ├── plan-features.type.ts           # PlanFeaturesJson
+│   ├── tenant-branding.type.ts         # TenantBrandingJson
+│   ├── tenant-settings.type.ts         # TenantSettingsJson
+│   └── index.ts
+└── index.ts
+```
+
+**Why:** the enums (`TenantStatus`, `PlanStatus`, etc.) had been declared at the top of each `*.orm.ts` file. Anywhere outside the ORM layer that wanted to use them — DTOs, command handlers, validators — would have had to import from `infrastructure/database/orms/...`, which is a clean-architecture layering violation. Hoisting them into `shared/` resolves that.
+
+**JSON-shape interfaces** replace the previous `Record<string, unknown>` typings on the four jsonb columns. `tenants.branding_json` is typed `TenantBrandingJson`; `tenants.settings_json` is `TenantSettingsJson`; `plans.features_json` is `PlanFeaturesJson`. Documented fields match the spec examples; `PlanFeaturesJson` is intentionally indexable for plan-specific extension flags.
+
+**ORM imports updated:**
+
+- `tenant.orm.ts` — `TenantStatus`, `TenantBrandingJson`, `TenantSettingsJson` from `src/shared`.
+- `tenant-member.orm.ts` — `TenantMemberStatus` from `src/shared/enums`.
+- `plan.orm.ts` — `PlanStatus`, `PlanFeaturesJson` from `src/shared`.
+- `invitation.orm.ts` — `InvitationStatus`, `InvitationType`, `InvitationRoleScope` from `src/shared/enums`.
+
+ORM file paths reflect the in-progress reorganization to `services/tenants/src/infrastructure/database/orms/` (was `infrastructure/orms/`).
+
+### Operational Notes
+
+- DTOs and command handlers should now import enums directly from `src/shared/enums` (or `src/shared` barrel) rather than from ORM modules.
+- `JsonObject` / `JsonValue` aliases are available for genuinely free-form payload columns (e.g. provider event payloads) where a structured interface would be premature.
+
 ## 2026-05-07 - Reference Tables UUID Column
 
 ### Schema Changes
